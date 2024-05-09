@@ -44,7 +44,7 @@ function Dashboard() {
   };
   
   const handleApplyFilters = () => {
-    const domain = 'http://127.0.0.1:8001/';
+    const domain = 'http://143.110.184.45:8100/';
     const [fromDate, toDate] = dateRange;
     let url = `${domain}reports/?`;
     url += `machine=${selectedMachine}&department=${selectedDepartment}`;
@@ -69,7 +69,7 @@ function Dashboard() {
   }, []);
 
   const getMachines = () => {
-    const domain = 'http://127.0.0.1:8001/';
+    const domain = 'http://143.110.184.45:8100/';
     let url = `${domain}machine/?`;
     axios.get(url)
       .then(response => {
@@ -85,7 +85,7 @@ function Dashboard() {
   };
 
   const getDepartments = () => {
-    const domain = 'http://127.0.0.1:8001/';
+    const domain = 'http://143.110.184.45:8100/';
     let url = `${domain}department/?`;
     axios.get(url)
       .then(response => {
@@ -112,7 +112,7 @@ console.log(tableData,'<<<')
   };
 
   const initialTableData = () => {
-    const domain = `http://127.0.0.1:8001/`;
+    const domain = `http://143.110.184.45:8100/`;
     const [fromDate, toDate] = [startDate, endDate].map(date => date.toISOString().slice(0, 10)); // Format dates as YYYY-MM-DD
     const url = `${domain}reports/`;
     axios.get(url)
@@ -127,7 +127,7 @@ console.log(tableData,'<<<')
 const [alertData,setAlertData]=useState();
 
   const alertApi = ()=>{
-    const domain = `http://127.0.0.1:8001/`;
+    const domain = `http://143.110.184.45:8100/`;
     const url = `${domain}alerts/`;
     axios.get(url).then((res)=>{
 console.log(res.data)
@@ -195,7 +195,7 @@ const categorizeDefects = (data) => {
 
   const handleMachineCheckBoxChange = (checkedValues) => {
     setSelectedCheckboxMachine(checkedValues);
-    let url = 'http://127.0.0.1:8001/reports?machine=';
+    let url = 'http://143.110.184.45:8100/reports?machine=';
     checkedValues.forEach((machineId, index) => {
       if (index !== 0) {
         url += ',';
@@ -273,7 +273,7 @@ console.log(categoryDefects,'<<<')
           
       />
    
-      <Button type="primary" onClick={handleApplyFilters} style={{fontSize:"1rem",backgroundColor:"#ec522d",marginRight:"10px"}}>Apply filters</Button>
+      <Button type="primary" onClick={handleApplyFilters} style={{fontSize:"1rem",backgroundColor:"#c91245",marginRight:"10px"}}>Apply filters</Button>
 
 
        </Col>
@@ -323,7 +323,7 @@ console.log(categoryDefects,'<<<')
                   <Row align="middle">
                     <Col xs={18}>
                       <Title level={3}>
-                        {`Defects`}
+                        {`Violations`}
                       </Title>
 
                       {/* <span>  {Object.keys(categoryDefects).reduce((total, category) => total + category, 0)}</span> */}
@@ -351,7 +351,7 @@ console.log(categoryDefects,'<<<')
                   <Row align="middle">
                     <Col xs={18}>
                       <Title level={3}>
-                        {`Alerts`}
+                        {`Areas`}
                       </Title>
                       {
                         alertData ? 

@@ -35,7 +35,7 @@ if(data === '' || data === undefined || data === null){
     }
     
     const PostData = async()=>{
-      const res = await axios.post(`http://127.0.0.1:8001/${param}/`,payload)
+      const res = await axios.post(`http://143.110.184.45:8100/${param}/`,payload)
       try{
         api.open({
           message: `${param} created`,
@@ -65,7 +65,7 @@ console.log(data)
 </Col>
 <Col span={3}  >
 
-<Button type="primary" style={{width:'100%',padding:'0'}} danger>
+<Button type="primary" style={{width:'100%',padding:'0',background:'#c91245'}} danger>
 User Creation
     </Button>   </Col>
 </Row>
@@ -139,7 +139,7 @@ User Creation
       <Input placeholder="input placeholder" value={handleChange} />
       </Form.Item>
       <Form.Item >
-        <Button style={{background:'#EC522D',color:'#fff'}} onClick={()=>handlePost('defect')}>Create Defects</Button>
+        <Button style={{background:'#c91245',color:'#fff'}} onClick={()=>handlePost('defect')}>Create Defects</Button>
       </Form.Item>
     </Form>
   
@@ -167,7 +167,7 @@ User Creation
         <Input placeholder="Enter Department Name"  onChange={(e)=>setData(e.target.value)} />
       </Form.Item>
       <Form.Item >
-        <Button style={{background:'#EC522D',color:'#fff'}} onClick={()=>handlePost('department')}>Create Department</Button>
+        <Button style={{background:'#c91245',color:'#fff'}} onClick={()=>handlePost('department')}>Create Department</Button>
       </Form.Item>
     </Form>
   
@@ -195,7 +195,7 @@ User Creation
         <Input placeholder="Enter Machine Name"  onChange={(e)=>setData(e.target.value)} />
       </Form.Item>
       <Form.Item >
-        <Button style={{background:'#EC522D',color:'#fff'}} onClick={()=>handlePost('machine')}>Create Machine </Button>
+        <Button style={{background:'#c91245',color:'#fff'}} onClick={()=>handlePost('machine')}>Create Machine </Button>
       </Form.Item>
     </Form>
   
@@ -224,7 +224,7 @@ User Creation
         <Input placeholder="Enter Alerts Name"  onChange={(e)=>setData(e.target.value)} />
       </Form.Item>
       <Form.Item>
-        <Button style={{background:'#EC522D',color:'#fff'}} onClick={()=>handlePost('alerts')}>Create Alerts</Button>
+        <Button style={{background:'#c91245',color:'#fff'}} onClick={()=>handlePost('alerts')}>Create Alerts</Button>
       </Form.Item>
     </Form>
   

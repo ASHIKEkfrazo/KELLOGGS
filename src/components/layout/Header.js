@@ -40,7 +40,7 @@ import avtar from "../../assets/images/team-2.jpg";
 
 const ButtonContainer = styled.div`
   .ant-btn-primary {
-    background-color: #ec522d;
+    background-color: #c91245;
   }
   .ant-btn-success {
     background-color: #52c41a;
@@ -55,7 +55,7 @@ const ButtonContainer = styled.div`
     border-radius: 5px;
   }
   .ant-switch-active {
-    background-color: #ec522d;
+    background-color: #c91245;
   }
 `;
 
@@ -115,11 +115,11 @@ const credit = [
     key={0}
   >
     <path
-      fill="#ec522d"
+      fill="#c91245"
       d="M4 4C2.89543 4 2 4.89543 2 6V7H18V6C18 4.89543 17.1046 4 16 4H4Z"
     ></path>
     <path
-      fill="#ec522d"
+      fill="#c91245"
       fillRule="evenodd"
       clipRule="evenodd"
       d="M18 9H2V14C2 15.1046 2.89543 16 4 16H16C17.1046 16 18 15.1046 18 14V9ZM4 13C4 12.4477 4.44772 12 5 12H6C6.55228 12 7 12.4477 7 13C7 13.5523 6.55228 14 6 14H5C4.44772 14 4 13.5523 4 13ZM9 12C8.44772 12 8 12.4477 8 13C8 13.5523 8.44772 14 9 14H10C10.5523 14 11 13.5523 11 13C11 12.4477 10.5523 12 10 12H9Z"
@@ -323,9 +323,7 @@ function Header({
           <DateContainer/>
           <Clock />
           </div>
-          <div className="" style={{height:"50px",width:'50px',border:'0.5px solid #c6c6c6',borderRadius:'50%'}}>
-            <img src="https://xtemko.stripocdn.email/content/guids/CABINET_d8f211887c57378d14d80cfb73c09f4b2db394a5cf71f6e0cdda10e02f8c454f/images/vin_logo.jpeg" alt="" width={100} style={{padding:'0.5rem'}} />
-          </div>
+     
           </div>
   
     
@@ -372,7 +370,7 @@ function Header({
                   <ButtonContainer>
                     <Button
                       type="primary"
-                      onClick={() => handleSidenavColor("#ec522d")}
+                      onClick={() => handleSidenavColor("#c91245")}
                     >
                       1
                     </Button>

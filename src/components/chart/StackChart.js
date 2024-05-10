@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import ReactApexChart from "react-apexcharts";
 import { Typography } from "antd";
-import axios from 'axios'
+import axios from 'axios';
 
 function StackChart({ data }) {
   const { Title } = Typography;
   const [defectColors, setDefectColors] = useState({});
-
+console.log(data)
   useEffect(() => {
     // Fetch defect colors from the API
     axios.get('http://143.110.184.45:8100/defect/')
@@ -28,29 +28,29 @@ function StackChart({ data }) {
     return <div>Loading...</div>; // or some other fallback UI
   }
 
-  // Extract unique defect names
-  const defectNames = [...new Set(Object.values(data).flatMap(defect => Object.keys(defect)))];
+  // Sort the data by date
+  const sortedData = data.sort((a, b) => new Date(a.date_time) - new Date(b.date_time));
+  
 
-  // Sort the dates in ascending order
-  const sortedDates = Object.keys(data).sort((a, b) => new Date(a) - new Date(b));
-
-  // Prepare series data with dynamically assigned colors
-  const seriesData = defectNames.map((defectName, index) => ({
-    name: defectName,
-    data: sortedDates.map(date => data[date][defectName] || 0),
-    color: defectColors[defectName] || ['#FF5733', '#e31f09', '#3357FF'][index % 3]
-
-    // You can set the color here if needed
+  // Prepare series data
+  const seriesData = sortedData.map(item => (
+    {
+    x: item.date_time.split('T')[0],
+    y: item.no_of_persons,
+    fillColor: item.color_code
   }));
 
+  console.log(seriesData)
   // Prepare data for the chart
   const chartData = {
-    series: seriesData,
+    series: [{
+      name: "Number of Persons",
+      data: seriesData
+    }],
     options: {
       chart: {
         type: 'bar',
         height: 350,
-        stacked: true,
         toolbar: {
           show: false
         },
@@ -58,24 +58,27 @@ function StackChart({ data }) {
           enabled: true
         }
       },
-      xaxis: {
-        type: 'category',
-        categories: sortedDates,
+      plotOptions: {
+        bar: {
+          horizontal: false,
+          columnWidth: '55%',
+          endingShape: 'rounded'
+        },
       },
-      legend: {
-        position: 'bottom',
-        offsetY: '0'
-      },
+
       fill: {
+        type: 'solid',
         opacity: 1
-      }
-    },
+      },
+      colors: sortedData.map(item => item.color_code)
+    }
   };
+  
 
   return (
     <div>
       <div>
-        <Title level={5}>Bar Graph for Defects</Title>
+        <Title level={5}>Bar Graph for Human Counts </Title>
       </div>
       <ReactApexChart 
         options={chartData.options} 

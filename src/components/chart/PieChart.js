@@ -1,51 +1,45 @@
 import React, { useState, useEffect } from "react";
 import ReactApexChart from "react-apexcharts";
 import { Typography } from "antd";
-import axios from "axios";
 
 function PieChart({ data }) {
   const { Title } = Typography;
-  const [defectColors, setDefectColors] = useState({});
   const [chartData, setChartData] = useState({ labels: [], series: [] });
-
-  useEffect(() => {
-    // Fetch defect colors from the API
-    axios.get('http://143.110.184.45:8100/defect/')
-      .then(response => {
-        const colors = {};
-        response.data.forEach(defect => {
-          colors[defect.name] = defect.color_code;
-        });
-        setDefectColors(colors);
-      })
-      .catch(error => {
-        console.error('Error fetching defect colors:', error);
-      });
-  }, []);
+  const [colorCodes, setColorCodes] = useState({});
 
   useEffect(() => {
     if (!data || typeof data !== 'object') return;
 
-    const aggregatedData = Object.values(data).reduce((acc, defects) => {
-      Object.entries(defects).forEach(([defect, count]) => {
-        if (!acc[defect]) {
-          acc[defect] = 0;
-        }
-        acc[defect] += count;
-      });
+    const groupedData = data.reduce((acc, entry) => {
+      const { date_time, no_of_persons, color_code } = entry;
+      const date = date_time.split('T')[0];
+      if (!acc[date]) {
+        acc[date] = { no_of_persons: 0 };
+      }
+      acc[date].no_of_persons += parseInt(no_of_persons);
       return acc;
     }, {});
 
-    const labels = Object.keys(aggregatedData);
-    const series = Object.values(aggregatedData);
+    const labels = Object.keys(groupedData);
+    const series = Object.values(groupedData).map(item => item.no_of_persons);
 
     setChartData({ labels: labels, series: series });
+
+    const colors = {};
+    data.forEach(entry => {
+      const { date_time, color_code } = entry;
+      const date = date_time.split('T')[0];
+      if (!colors[date]) {
+        colors[date] = color_code;
+      }
+    });
+    setColorCodes(colors);
   }, [data]);
 
   return (
     <div>
       <div>
-        <Title level={5}>Pie Chart for Defects</Title>
+        <Title level={5}>Pie Chart for No. of Persons by Date</Title>
       </div>
       <ReactApexChart
         options={{
@@ -53,8 +47,8 @@ function PieChart({ data }) {
             width: 380,
             type: 'pie',
           },
-          colors: chartData.labels.map(label => defectColors[label] || '#FF5733'), // Default color if no color code found
           labels: chartData.labels,
+          colors: chartData.labels.map(label => colorCodes[label]),
           responsive: [{
             breakpoint: 480,
             options: {

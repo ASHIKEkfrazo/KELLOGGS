@@ -6,7 +6,7 @@ import axios from 'axios';
 function StackChart({ data }) {
   const { Title } = Typography;
   const [defectColors, setDefectColors] = useState({});
-console.log(data)
+
   useEffect(() => {
     // Fetch defect colors from the API
     axios.get('http://143.110.184.45:8100/defect/')
@@ -30,27 +30,44 @@ console.log(data)
 
   // Sort the data by date
   const sortedData = data.sort((a, b) => new Date(a.date_time) - new Date(b.date_time));
-  
 
   // Prepare series data
-  const seriesData = sortedData.map(item => (
-    {
+  const personsSeries = sortedData.map(item => ({
     x: item.date_time.split('T')[0],
-    y: item.no_of_persons,
+    y: parseInt(item.no_of_persons),
     fillColor: item.color_code
   }));
 
-  console.log(seriesData)
+  const nonComplianceSeries = sortedData.map(item => ({
+    x: item.date_time.split('T')[0],
+    y: parseInt(item.non_compliance_count),
+    fillColor: item.non_compliance_color_code
+  }));
+
   // Prepare data for the chart
   const chartData = {
-    series: [{
-      name: "Number of Persons",
-      data: seriesData
-    }],
+    series: [
+      {
+        name: "Number of Persons",
+        data: personsSeries.map(item => ({
+          x: item.x,
+          y: item.y 
+        })),
+      },
+      {
+        name: "Non-Compliance Count",
+        data: nonComplianceSeries.map(item => ({
+          x: item.x,
+          y: item.y,
+          fillColor: item.fillColor
+        })),
+      }
+    ],
     options: {
       chart: {
         type: 'bar',
         height: 350,
+        stacked: true,
         toolbar: {
           show: false
         },
@@ -61,24 +78,30 @@ console.log(data)
       plotOptions: {
         bar: {
           horizontal: false,
-          columnWidth: '55%',
-          endingShape: 'rounded'
+          columnWidth: '45%',
+          endingShape: 'rounded',
         },
       },
-
+      xaxis: {
+        type: 'category',
+        categories: sortedData.map(item => item.date_time.split('T')[0])
+      },
       fill: {
         type: 'solid',
         opacity: 1
       },
-      colors: sortedData.map(item => item.color_code)
+      colors: [sortedData[0].color_code, sortedData[0].non_compliance_color_code],
+      legend: {
+        position: 'top',
+        horizontalAlign: 'center'
+      }
     }
   };
-  
 
   return (
     <div>
       <div>
-        <Title level={5}>Bar Graph for Human Counts </Title>
+        <Title level={5}>Total Count and Violation Count</Title>
       </div>
       <ReactApexChart 
         options={chartData.options} 

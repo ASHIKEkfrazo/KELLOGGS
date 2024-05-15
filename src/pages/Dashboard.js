@@ -287,6 +287,7 @@ console.log(categoryDefects,'<<<')
   onChange={handleMachineChange}
   size="large"
 >
+  console.log(tableData.length)
   {machineOptions.map(machine => (
     <Select.Option key={machine.id} value={machine.id}>{machine.name}</Select.Option>
   ))}
@@ -336,7 +337,7 @@ console.log(categoryDefects,'<<<')
           <Title level={3}>
             {`Humans`}
           </Title>
-          <span>{`2`}</span>
+          <span></span>
         </Col>
         <Col xs={6}>
           <div className="icon-box"><VideoCameraOutlined /></div>
@@ -457,11 +458,11 @@ console.log(categoryDefects,'<<<')
             </Card>
           </Col>
         </Row>
-        <Row>
+        {/* <Row>
         <Card bordered={false} className="criclebox h-full">
          <MachinesParameterWithPagination />
          </Card>
-        </Row>
+        </Row> */}
 
       </div>
     </>

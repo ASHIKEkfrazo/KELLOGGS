@@ -157,7 +157,7 @@ function Sidenav({ color }) {
       <hr />
       <Menu theme="light" mode="inline">
         <Menu.Item key="1">
-          <NavLink to="/dashboard">
+          <NavLink to="/dashboards">
             <span
               className="icon"
               style={{
@@ -202,7 +202,7 @@ function Sidenav({ color }) {
           </NavLink>
         </Menu.Item>
 
-        <Menu.Item key="4">
+        {/* <Menu.Item key="4">
           <NavLink to="/machines-parameter">
             <span
               className="icon"
@@ -216,10 +216,10 @@ function Sidenav({ color }) {
                 color: page === "machines-parameter" ? color : "",
               }}>Machines Parameter</span>
           </NavLink>
-        </Menu.Item>
+        </Menu.Item> */}
 
 
-        <Menu.Item key="5">
+        <Menu.Item key="4">
           <NavLink to="/camera">
             <span
               className="icon"
@@ -235,7 +235,7 @@ function Sidenav({ color }) {
           </NavLink>
         </Menu.Item>
 
-        <Menu.Item key="6">
+        <Menu.Item key="5">
           <NavLink to="/settings">
             <span
               className="icon"

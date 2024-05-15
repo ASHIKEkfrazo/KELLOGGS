@@ -157,7 +157,7 @@ function Sidenav({ color }) {
       <hr />
       <Menu theme="light" mode="inline">
         <Menu.Item key="1">
-          <NavLink to="/dashboard">
+          <NavLink to="/dashboards">
             <span
               className="icon"
               style={{
@@ -176,13 +176,13 @@ function Sidenav({ color }) {
             <span
               className="icon"
               style={{
-                background: page === "Reports" ? color : "",
+                background: page === "reports" ? color : "",
               }}
             >
               {tables}
             </span>
             <span className="label"       style={{
-                color: page === "Reports" ? color : "",
+                color: page === "reports" ? color : "",
               }}>Reports</span>
           </NavLink>
         </Menu.Item>
@@ -202,7 +202,7 @@ function Sidenav({ color }) {
           </NavLink>
         </Menu.Item>
 
-        <Menu.Item key="4">
+        {/* <Menu.Item key="4">
           <NavLink to="/machines-parameter">
             <span
               className="icon"
@@ -216,10 +216,10 @@ function Sidenav({ color }) {
                 color: page === "machines-parameter" ? color : "",
               }}>Machines Parameter</span>
           </NavLink>
-        </Menu.Item>
+        </Menu.Item> */}
 
 
-        <Menu.Item key="5">
+        <Menu.Item key="4">
           <NavLink to="/camera">
             <span
               className="icon"
@@ -235,7 +235,7 @@ function Sidenav({ color }) {
           </NavLink>
         </Menu.Item>
 
-        <Menu.Item key="6">
+        <Menu.Item key="5">
           <NavLink to="/settings">
             <span
               className="icon"
@@ -292,6 +292,9 @@ function Sidenav({ color }) {
           </NavLink>
         </Menu.Item> */}
       </Menu>
+      <div className="" style={{height:"90px",width:'90px',border:'0.5px solid #c6c6c6',borderRadius:'50%',background:'#c91245',display:'flex',alignItems:'center',justifyContent:'center',position:'absolute',bottom:'5%',left:'30%'}}>
+            <img src="https://xtemko.stripocdn.email/content/guids/CABINET_3f6980a147b71160dce73149d2ef05dab8c491ba05fc385af44b49c47888eb10/images/kellogglogoblack1removebgpreview.png" alt="" width={100} style={{padding:'0.5rem'}} />
+          </div>
     </>
   );
 }

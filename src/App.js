@@ -20,13 +20,13 @@ function App() {
         <Route path="/sign-up" exact component={SignUp} />
         <Route path="/sign-in" exact component={SignIn} />
         <Main>
-          <Route exact path="/dashboard" component={Dashboard} />
+          <Route exact path="/dashboards" component={Dashboard} />
           <Route exact path="/reports" component={Reports} />
           <Route exact path="/ai-smart-view" component={AiSmartView} />
           <Route exact path="/machines-parameter" component={MachinesParameter} />
           <Route exact path="/camera" component={Camera} />
           <Route exact path="/settings" component={Settings} />
-          <Redirect from="*" to="/dashboard" />
+          <Redirect from="*" to="/dashboards" />
         </Main>
       </Switch>
     </div>

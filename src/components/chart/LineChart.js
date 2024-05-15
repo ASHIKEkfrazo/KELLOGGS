@@ -1,45 +1,30 @@
 import React, { useState, useEffect } from "react";
 import ReactApexChart from "react-apexcharts";
 import { Typography } from "antd";
-import axios from "axios";
-import { createGlobalStyle } from "styled-components";
 
 function LineChart({ data }) {
   const { Title } = Typography;
-  const [defectColors, setDefectColors] = useState({});
-  useEffect(() => {
-    // Fetch defect colors from the API
-    axios.get('http://127.0.0.1:8001/defect/')
-      .then(response => {
-        // Organize the response data as an object with defect names as keys and color codes as values
-        const colors = {};
-        response.data.forEach(defect => {
-          colors[defect.name] = defect.color_code;
-        });
-        // Set the defect colors state
-        setDefectColors(colors);
-      })
-      .catch(error => {
-        console.error('Error fetching defect colors:', error);
-      });
-  }, []);
 
-  if (!data || Object.keys(data).length === 0) {
+  if (!data || data.length === 0) {
     return <div>Loading...</div>; // or some other fallback UI
   }
   
-  // Extract unique defect names from all dates
-  const defectNames = [...new Set(Object.values(data).flatMap(defects => Object.keys(defects)))];
+  // Sort the data by date_time
+  const sortedData = data.sort((a, b) => new Date(a.date_time) - new Date(b.date_time));
 
-  // Sort the dates in ascending order
-  const sortedDates = Object.keys(data).sort((a, b) => new Date(a) - new Date(b));
+  // Extract unique dates
+  const uniqueDates = [...new Set(sortedData.map(item => item.date_time.split('T')[0]))];
 
   // Prepare series data
-  const seriesData = defectNames.map((defectName, index) => {
+  const seriesData = uniqueDates.map(date => {
+    const dataForDate = sortedData.filter(item => item.date_time.split('T')[0] === date.split('T')[0]);
     return {
-      name: defectName,
-      data: sortedDates.map(date => data[date][defectName] || 0),
-      color: defectColors[defectName] || ['#FF5733', '#e31f09', '#3357FF'][index % 3]
+      name: date.split('T')[0],
+      data: dataForDate.map(item => ({
+        x: new Date(item.date_time).getTime(), // Convert date string to JavaScript timestamp
+        y: item.no_of_persons
+      })),
+      color: dataForDate.length > 0 ? dataForDate[0].color_code : "#FF5733" // Default color if no color code found
     };
   });
 
@@ -50,13 +35,13 @@ function LineChart({ data }) {
       chart: {
         width: "100%",
         height: 350,
-        type: "area",
+        type: "line",
         toolbar: {
           show: false,
         },
       },
       legend: {
-        show: true, // Show legend to distinguish between different defect names
+        show: true,
       },
       dataLabels: {
         enabled: false,
@@ -65,7 +50,7 @@ function LineChart({ data }) {
         curve: "smooth",
       },
       yaxis: {
-        min: 0, // Set the minimum value of y-axis to 0
+        min: 0,
         labels: {
           style: {
             fontSize: "14px",
@@ -75,6 +60,7 @@ function LineChart({ data }) {
         },
       },
       xaxis: {
+        type: 'datetime',
         labels: {
           style: {
             fontSize: "14px",
@@ -82,9 +68,11 @@ function LineChart({ data }) {
             colors: ["#8c8c8c"],
           },
         },
-        categories: sortedDates, // Set categories as sorted dates
       },
       tooltip: {
+        x: {
+          format: 'yyyy-MM-dd'
+        },
         y: {
           formatter: function (val) {
             return val;
@@ -97,7 +85,7 @@ function LineChart({ data }) {
   return (
     <div className="linechart">
       <div>
-        <Title level={5}>Defects Count</Title>
+        <Title level={5}>Line Chart for Human Counts</Title>
       </div>
       <ReactApexChart
         className="full-width"

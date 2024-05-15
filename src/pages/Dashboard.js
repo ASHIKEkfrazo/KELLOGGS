@@ -44,7 +44,7 @@ function Dashboard() {
   };
   
   const handleApplyFilters = () => {
-    const domain = 'http://127.0.0.1:8001/';
+    const domain = 'http://143.110.184.45:8100/';
     const [fromDate, toDate] = dateRange;
     let url = `${domain}reports/?`;
     url += `machine=${selectedMachine}&department=${selectedDepartment}`;
@@ -69,7 +69,7 @@ function Dashboard() {
   }, []);
 
   const getMachines = () => {
-    const domain = 'http://127.0.0.1:8001/';
+    const domain = 'http://143.110.184.45:8100/';
     let url = `${domain}machine/?`;
     axios.get(url)
       .then(response => {
@@ -85,7 +85,7 @@ function Dashboard() {
   };
 
   const getDepartments = () => {
-    const domain = 'http://127.0.0.1:8001/';
+    const domain = 'http://143.110.184.45:8100/';
     let url = `${domain}department/?`;
     axios.get(url)
       .then(response => {
@@ -110,11 +110,49 @@ console.log(tableData,'<<<')
     
     setDateRange([formattedStartDate, formattedEndDate]);
   };
+const data = [
+  {
+    "no_of_persons": 100,
+    "date_time": "2024-04-04T12:00:00",
+    "person_color_code": "#561eck"
+},
+  {
+      "no_of_persons": 100,
+      "date_time": "2024-04-04T12:00:00",
+      "person_color_code": "#9632a8"
+  },
+  {
+      "no_of_persons": 90,
+      "date_time": "2024-04-05T12:00:00",
+      "person_color_code": "#561ecm"
+  },
+  {
+      "no_of_persons": 120,
+      "date_time": "2024-04-06T09:30:00",
+      "person_color_code": "#7b1f85"
+  },
+  {
+      "no_of_persons": 80,
+      "date_time": "2024-04-07T15:45:00",
+      "person_color_code": "#3a8e6d"
+  },
+  {
+      "no_of_persons": 150,
+      "date_time": "2024-04-08T11:20:00",
+      "person_color_code": "#a6491e"
+  },
+  {
+      "no_of_persons": 90,
+      "date_time": "2024-04-09T14:00:00",
+      "person_color_code": "#e6941b"
+  },
+
+]
 
   const initialTableData = () => {
-    const domain = `http://127.0.0.1:8001/`;
+    const domain = `http://localhost:8000/dashboard/`;
     const [fromDate, toDate] = [startDate, endDate].map(date => date.toISOString().slice(0, 10)); // Format dates as YYYY-MM-DD
-    const url = `${domain}reports/`;
+    const url = `${domain}`;
     axios.get(url)
       .then(response => {
   
@@ -127,7 +165,7 @@ console.log(tableData,'<<<')
 const [alertData,setAlertData]=useState();
 
   const alertApi = ()=>{
-    const domain = `http://127.0.0.1:8001/`;
+    const domain = `http://143.110.184.45:8100/`;
     const url = `${domain}alerts/`;
     axios.get(url).then((res)=>{
 console.log(res.data)
@@ -195,7 +233,7 @@ const categorizeDefects = (data) => {
 
   const handleMachineCheckBoxChange = (checkedValues) => {
     setSelectedCheckboxMachine(checkedValues);
-    let url = 'http://127.0.0.1:8001/reports?machine=';
+    let url = 'http://143.110.184.45:8100/reports?machine=';
     checkedValues.forEach((machineId, index) => {
       if (index !== 0) {
         url += ',';
@@ -273,7 +311,7 @@ console.log(categoryDefects,'<<<')
           
       />
    
-      <Button type="primary" onClick={handleApplyFilters} style={{fontSize:"1rem",backgroundColor:"#ec522d",marginRight:"10px"}}>Apply filters</Button>
+      <Button type="primary" onClick={handleApplyFilters} style={{fontSize:"1rem",backgroundColor:"#c91245",marginRight:"10px"}}>Apply filters</Button>
 
 
        </Col>
@@ -296,7 +334,7 @@ console.log(categoryDefects,'<<<')
       <Row align="middle">
         <Col xs={18}>
           <Title level={3}>
-            {`Machines`}
+            {`Humans`}
           </Title>
           <span>{`2`}</span>
         </Col>
@@ -323,7 +361,7 @@ console.log(categoryDefects,'<<<')
                   <Row align="middle">
                     <Col xs={18}>
                       <Title level={3}>
-                        {`Defects`}
+                        {`Violations`}
                       </Title>
 
                       {/* <span>  {Object.keys(categoryDefects).reduce((total, category) => total + category, 0)}</span> */}
@@ -351,7 +389,7 @@ console.log(categoryDefects,'<<<')
                   <Row align="middle">
                     <Col xs={18}>
                       <Title level={3}>
-                        {`Alerts`}
+                        {`Areas`}
                       </Title>
                       {
                         alertData ? 
@@ -369,7 +407,7 @@ console.log(categoryDefects,'<<<')
         </Row>
 
         <Row gutter={[24, 24]}>
-          <Col xs={24} sm={24} md={12} lg={12} xl={8} className="mb-24">
+          {/* <Col xs={24} sm={24} md={12} lg={12} xl={8} className="mb-24">
          <Card bordered={false} className="h-full">
          {Object.keys(categoryDefects).map((category, index) => (
   <Card key={index} bordered={true} className="criclebox h-full mb-2 px-2 ">
@@ -394,13 +432,13 @@ console.log(categoryDefects,'<<<')
 </Card>
 
   </Card>
-</Col>
-<Col xs={24} sm={24} md={12} lg={12} xl={16} className="mb-24">
+</Col> */}
+{/* <Col xs={24} sm={24} md={12} lg={12} xl={16} className="mb-24">
             <Card bordered={false} className="criclebox h-full">
               <MachineParam   />
 
             </Card>
-            </Col>
+            </Col> */}
 
           <Col xs={24} sm={24} md={12} lg={12} xl={12} className="mb-24">
             <Card bordered={false} className="criclebox h-full">

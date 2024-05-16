@@ -59,14 +59,33 @@ function Dashboard() {
         console.error('Error:', error);
       });
   };
-  
+  const [extractedDates, setExtractedDates] = useState([]);
+
+
+  // Function to extract dates from JSON data
+
   useEffect(() => {
     getDepartments();
     getMachines();
     initialDateRange();
     initialTableData();
     alertApi()
+
   }, []);
+
+
+  const extractAndSumPersons = (data) => {
+    const today = new Date().toISOString().split('T')[0]; // Get today's date in YYYY-MM-DD format
+    return data
+      .filter(entry => {
+        const entryDate = new Date(entry.date_time).toISOString().split('T')[0];
+        return entryDate === today;
+      })
+      .reduce((sum, entry) => sum + parseInt(entry.no_of_persons, 10), 0); // Sum the number of persons
+  };
+  const dates = extractAndSumPersons(tableData);
+
+
 
   const getMachines = () => {
     const domain = 'http://143.110.184.45:8100/';
@@ -162,6 +181,8 @@ const data = [
         console.error('Error:', error);
       });
   };
+
+
 const [alertData,setAlertData]=useState();
 
   const alertApi = ()=>{
@@ -337,7 +358,8 @@ console.log(categoryDefects,'<<<')
           <Title level={3}>
             {`Humans`}
           </Title>
-          <span></span>
+       
+          <span>{dates}</span>
         </Col>
         <Col xs={6}>
           <div className="icon-box"><VideoCameraOutlined /></div>

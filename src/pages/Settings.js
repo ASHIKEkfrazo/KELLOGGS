@@ -112,7 +112,7 @@ User Creation
   </Col>
 </Row>
 
-<Row gutter={24} style={{marginTop:'2rem',display:'flex',flexDirection:'column'}}>
+{/* <Row gutter={24} style={{marginTop:'2rem',display:'flex',flexDirection:'column'}}>
   <Col>
   <h5 style={{fontWeight:650}}>
     Create Defects <EditOutlined /></h5>
@@ -230,7 +230,7 @@ User Creation
   
   
   </Col>
-</Row>
+</Row> */}
 
 
 </>

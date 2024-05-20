@@ -128,3 +128,11 @@ a {
 label::after{
 content: '' !important;
 }
+.slick-track {
+  display: flex;
+  gap: 1rem;
+}
+.slick-slide img{
+  height: 300px;
+  width: 100%;
+}

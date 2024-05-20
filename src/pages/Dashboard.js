@@ -11,6 +11,7 @@ import PieChart from "../components/chart/PieChart";
 import MachinesParameter from "./MachinesParameterWithPagination";
 import MachinesParameterWithPagination from "./MachinesParameterWithPagination";
 import MachineParam from "../components/chart/MachineParam";
+import Slider from "../components/Slider/Slider"
 
 
 function Dashboard() {
@@ -59,14 +60,33 @@ function Dashboard() {
         console.error('Error:', error);
       });
   };
-  
+  const [extractedDates, setExtractedDates] = useState([]);
+
+
+  // Function to extract dates from JSON data
+
   useEffect(() => {
     getDepartments();
     getMachines();
     initialDateRange();
     initialTableData();
     alertApi()
+
   }, []);
+
+
+  const extractAndSumPersons = (data) => {
+    const today = new Date().toISOString().split('T')[0]; // Get today's date in YYYY-MM-DD format
+    return data
+      .filter(entry => {
+        const entryDate = new Date(entry.date_time).toISOString().split('T')[0];
+        return entryDate === today;
+      })
+      .reduce((sum, entry) => sum + parseInt(entry.no_of_persons, 10), 0); // Sum the number of persons
+  };
+  const dates = extractAndSumPersons(tableData);
+
+
 
   const getMachines = () => {
     const domain = 'http://143.110.184.45:8100/';
@@ -112,42 +132,117 @@ console.log(tableData,'<<<')
   };
 const data = [
   {
-    "no_of_persons": 100,
-    "date_time": "2024-04-04T12:00:00",
-    "person_color_code": "#561eck"
-},
-  {
-      "no_of_persons": 100,
-      "date_time": "2024-04-04T12:00:00",
-      "person_color_code": "#9632a8"
+      "id": 37,
+      "no_of_persons": "85",
+      "date_time": "2024-05-15T15:00:00",
+      "color_code": "#33FF57",
+      "defect": null,
+      "non_compliance_count": "3",
+      "non_compliance_color_code": "#39C700",
+      "camera": 2,
+      "camera_name": "Camera 2"
   },
   {
-      "no_of_persons": 90,
-      "date_time": "2024-04-05T12:00:00",
-      "person_color_code": "#561ecm"
+      "id": 38,
+      "no_of_persons": "112",
+      "date_time": "2024-05-15T16:00:00",
+      "color_code": "#5733FF",
+      "defect": "blurred image",
+      "non_compliance_count": "1",
+      "non_compliance_color_code": "#FF33C7",
+      "camera": 3,
+      "camera_name": "Camera 3"
   },
   {
-      "no_of_persons": 120,
-      "date_time": "2024-04-06T09:30:00",
-      "person_color_code": "#7b1f85"
+      "id": 39,
+      "no_of_persons": "97",
+      "date_time": "2024-05-15T17:00:00",
+      "color_code": "#FFC300",
+      "defect": null,
+      "non_compliance_count": "0",
+      "non_compliance_color_code": "#900C3F",
+      "camera": 4,
+      "camera_name": "Camera 4"
   },
   {
-      "no_of_persons": 80,
-      "date_time": "2024-04-07T15:45:00",
-      "person_color_code": "#3a8e6d"
+      "id": 40,
+      "no_of_persons": "76",
+      "date_time": "2024-05-15T18:00:00",
+      "color_code": "#DAF7A6",
+      "defect": "low light",
+      "non_compliance_count": "4",
+      "non_compliance_color_code": "#C70039",
+      "camera": 5,
+      "camera_name": "Camera 5"
   },
   {
-      "no_of_persons": 150,
-      "date_time": "2024-04-08T11:20:00",
-      "person_color_code": "#a6491e"
+      "id": 41,
+      "no_of_persons": "103",
+      "date_time": "2024-05-15T19:00:00",
+      "color_code": "#581845",
+      "defect": null,
+      "non_compliance_count": "2",
+      "non_compliance_color_code": "#900C3F",
+      "camera": 6,
+      "camera_name": "Camera 6"
   },
   {
-      "no_of_persons": 90,
-      "date_time": "2024-04-09T14:00:00",
-      "person_color_code": "#e6941b"
+      "id": 42,
+      "no_of_persons": "64",
+      "date_time": "2024-05-15T20:00:00",
+      "color_code": "#FFC0CB",
+      "defect": "glare",
+      "non_compliance_count": "3",
+      "non_compliance_color_code": "#FF5733",
+      "camera": 7,
+      "camera_name": "Camera 7"
   },
-
+  {
+      "id": 43,
+      "no_of_persons": "88",
+      "date_time": "2024-05-15T21:00:00",
+      "color_code": "#800080",
+      "defect": null,
+      "non_compliance_count": "1",
+      "non_compliance_color_code": "#C70039",
+      "camera": 8,
+      "camera_name": "Camera 8"
+  },
+  {
+      "id": 44,
+      "no_of_persons": "75",
+      "date_time": "2024-05-15T22:00:00",
+      "color_code": "#008080",
+      "defect": "out of focus",
+      "non_compliance_count": "2",
+      "non_compliance_color_code": "#900C3F",
+      "camera": 9,
+      "camera_name": "Camera 9"
+  },
+  {
+      "id": 45,
+      "no_of_persons": "90",
+      "date_time": "2024-05-15T23:00:00",
+      "color_code": "#0000FF",
+      "defect": null,
+      "non_compliance_count": "0",
+      "non_compliance_color_code": "#C70039",
+      "camera": 10,
+      "camera_name": "Camera 10"
+  },
+  {
+      "id": 46,
+      "no_of_persons": "99",
+      "date_time": "2024-05-16T00:00:00",
+      "color_code": "#FF0000",
+      "defect": "low resolution",
+      "non_compliance_count": "5",
+      "non_compliance_color_code": "#900C3F",
+      "camera": 11,
+      "camera_name": "Camera 11"
+  }
 ]
+
 
   const initialTableData = () => {
     const domain = `http://localhost:8000/dashboard/`;
@@ -162,6 +257,7 @@ const data = [
         console.error('Error:', error);
       });
   };
+
 const [alertData,setAlertData]=useState();
 
   const alertApi = ()=>{
@@ -251,7 +347,6 @@ const categorizeDefects = (data) => {
     });
   };
   
-console.log(categoryDefects,'<<<')
   const menu = (
     <Menu selectable={true}>
       <Menu.Item key="0">
@@ -265,6 +360,19 @@ console.log(categoryDefects,'<<<')
       </Menu.Item>
     </Menu>
   );
+  const [imageData, setImageData]= useState([])
+
+  useEffect(()=>{
+    axios.get('http://localhost:8000/dashboard_preview/')
+     .then((res)=>{
+         setImageData(res.data)
+     })
+     .catch((err)=>{
+         console.log(err)
+     })
+
+
+ },[])
   
   return (
     <>
@@ -317,6 +425,7 @@ console.log(categoryDefects,'<<<')
 
        </Col>
         </Row>
+  
 
         <Row className="rowgap-vbox" gutter={[24, 0]}>
             <Col
@@ -337,7 +446,8 @@ console.log(categoryDefects,'<<<')
           <Title level={3}>
             {`Humans`}
           </Title>
-          <span></span>
+       
+          <span>{dates}</span>
         </Col>
         <Col xs={6}>
           <div className="icon-box"><VideoCameraOutlined /></div>
@@ -406,7 +516,13 @@ console.log(categoryDefects,'<<<')
               </Card>
             </Col>
         </Row>
+        <Row>
 
+<Col  className="mb-24" style={{margin:'3rem 0'}}>
+<Slider data={imageData}/>
+</Col> 
+</Row>
+   
         <Row gutter={[24, 24]}>
           {/* <Col xs={24} sm={24} md={12} lg={12} xl={8} className="mb-24">
          <Card bordered={false} className="h-full">
@@ -452,17 +568,13 @@ console.log(categoryDefects,'<<<')
 
             </Card>
           </Col> 
-          <Col xs={24} sm={24} md={12} lg={12} xl={12} className="mb-24">
+          {/* <Col xs={24} sm={24} md={12} lg={12} xl={12} className="mb-24">
             <Card bordered={false} className="criclebox h-full">
               <PieChart  data={tableData} />
             </Card>
-          </Col>
+          </Col> */}
         </Row>
-        {/* <Row>
-        <Card bordered={false} className="criclebox h-full">
-         <MachinesParameterWithPagination />
-         </Card>
-        </Row> */}
+
 
       </div>
     </>

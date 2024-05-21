@@ -20,15 +20,18 @@ function AutoPlay({data}) {
     <>
     
     {
-      data.length === 0 ?   <ColorRing
-      visible={true}
-      height="80"
-      width="80"
-      ariaLabel="color-ring-loading"
-      wrapperStyle={{}}
-      wrapperClass="color-ring-wrapper"
-      colors={['#e15b64', '#f47e60', '#f8b26a', '#abbd81', '#849b87']}
-      /> :
+      data.length === 0 ? 
+null
+        // <ColorRing
+        // visible={true}
+        // height="80"
+        // width="80"
+        // ariaLabel="color-ring-loading"
+        // wrapperStyle={{}}
+        // wrapperClass="color-ring-wrapper"
+        // colors={['#e15b64', '#f47e60', '#f8b26a', '#abbd81', '#849b87']}
+        // /> 
+      :
 
     <div className="slider-container">
         <h3 className="" style={{margin:'2rem 0'}}>Violation</h3>

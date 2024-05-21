@@ -66,11 +66,11 @@ function Dashboard() {
   // Function to extract dates from JSON data
 
   useEffect(() => {
-    getDepartments();
-    getMachines();
+    // getDepartments();
+    // getMachines();
     initialDateRange();
     initialTableData();
-    alertApi()
+    // alertApi()
 
   }, []);
 
@@ -88,37 +88,37 @@ function Dashboard() {
 
 
 
-  const getMachines = () => {
-    const domain = baseURL;
-    let url = `${domain}machine/?`;
-    axios.get(url)
-      .then(response => {
-        const formattedMachines = response.data.map(machine => ({
-          id: machine.id,
-          name: machine.name,
-        }));
-        setMachineOptions(formattedMachines);
-      })
-      .catch(error => {
-        console.error('Error fetching machine data:', error);
-      });
-  };
+  // const getMachines = () => {
+  //   const domain = baseURL;
+  //   let url = `${domain}machine/?`;
+  //   axios.get(url)
+  //     .then(response => {
+  //       const formattedMachines = response.data.map(machine => ({
+  //         id: machine.id,
+  //         name: machine.name,
+  //       }));
+  //       setMachineOptions(formattedMachines);
+  //     })
+  //     .catch(error => {
+  //       console.error('Error fetching machine data:', error);
+  //     });
+  // };
 
-  const getDepartments = () => {
-    const domain = baseURL;
-    let url = `${domain}department/?`;
-    axios.get(url)
-      .then(response => {
-        const formattedDepartment = response.data.map(department => ({
-          id: department.id,
-          name: department.name,
-        }));
-        setDepartmentOptions(formattedDepartment);
-      })
-      .catch(error => {
-        console.error('Error fetching department data:', error);
-      });
-  };
+  // const getDepartments = () => {
+  //   const domain = baseURL;
+  //   let url = `${domain}department/?`;
+  //   axios.get(url)
+  //     .then(response => {
+  //       const formattedDepartment = response.data.map(department => ({
+  //         id: department.id,
+  //         name: department.name,
+  //       }));
+  //       setDepartmentOptions(formattedDepartment);
+  //     })
+  //     .catch(error => {
+  //       console.error('Error fetching department data:', error);
+  //     });
+  // };
   const initialDateRange = () => {
     const startDate = new Date();
     startDate.setDate(startDate.getDate() - 7); // 7 days ago
@@ -146,17 +146,17 @@ function Dashboard() {
 
 const [alertData,setAlertData]=useState();
 
-  const alertApi = ()=>{
-    const domain = baseURL;
-    const url = `${domain}alerts/`;
-    axios.get(url).then((res)=>{
-console.log(res.data)
-setAlertData(res.data)
-    })
-    .catch((err)=>{
-      console.log(err)
-    })
-  }
+//   const alertApi = ()=>{
+//     const domain = baseURL;
+//     const url = `${domain}alerts/`;
+//     axios.get(url).then((res)=>{
+// console.log(res.data)
+// setAlertData(res.data)
+//     })
+//     .catch((err)=>{
+//       console.log(err)
+//     })
+//   }
  
 
   const { Title } = Typography;
@@ -229,7 +229,8 @@ const categorizeDefects = (data) => {
   const [imageData, setImageData]= useState([])
 
   useEffect(()=>{
-    axios.get('http://localhost:8000/dashboard_preview/')
+    const domain = `${baseURL}dashboard_preview`;
+    axios.get(domain)
      .then((res)=>{
          setImageData(res.data)
      })
@@ -382,9 +383,9 @@ const categorizeDefects = (data) => {
               </Card>
             </Col>
         </Row>
-        <Row>
+        <Row style={{display:'flex',justifyContent:'center'}}>
 
-<Col  className="mb-24" style={{margin:'3rem 0'}}>
+<Col  className="mb-24" style={{margin:'3rem 0',display:'flex',justifyContent:'center'}}>
 <Slider data={imageData}/>
 </Col> 
 </Row>

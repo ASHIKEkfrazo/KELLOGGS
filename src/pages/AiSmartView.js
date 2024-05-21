@@ -15,15 +15,15 @@ const AiSmartView = () => {
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0); 
   const sliderRef = useRef(null); 
 
-  useEffect(() => {
-    API.get("defect/")
-      .then(response => {
-        setDefects(response.data);
-      })
-      .catch(error => {
-        console.error("Error fetching defects:", error);
-      });
-  }, []);
+  // useEffect(() => {
+  //   API.get("defect/")
+  //     .then(response => {
+  //       setDefects(response.data);
+  //     })
+  //     .catch(error => {
+  //       console.error("Error fetching defects:", error);
+  //     });
+  // }, []);
 
   useEffect(() => {
     if (selectedDefect) {

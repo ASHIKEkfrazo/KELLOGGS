@@ -140,8 +140,8 @@ const Reports = () => {
 console.log(tableData,'<<<<-----')
   
   useEffect(() => {
-    getDepartments()
-    getMachines();
+    // getDepartments()
+    // getMachines();
     initialDateRange()
     initialTableData();
   }, []); 

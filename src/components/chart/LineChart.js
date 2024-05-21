@@ -8,22 +8,22 @@ function LineChart({ data }) {
   const { Title } = Typography;
   const [defectColors, setDefectColors] = useState({});
 
-  useEffect(() => {
-    // Fetch defect colors from the API
-    axios.get('http://143.110.184.45:8100/defect/')
-      .then(response => {
-        // Organize the response data as an object with defect names as keys and color codes as values
-        const colors = {};
-        response.data.forEach(defect => {
-          colors[defect.name] = defect.color_code;
-        });
-        // Set the defect colors state
-        setDefectColors(colors);
-      })
-      .catch(error => {
-        console.error('Error fetching defect colors:', error);
-      });
-  }, []);
+  // useEffect(() => {
+  //   // Fetch defect colors from the API
+  //   axios.get('http://143.110.184.45:8100/defect/')
+  //     .then(response => {
+  //       // Organize the response data as an object with defect names as keys and color codes as values
+  //       const colors = {};
+  //       response.data.forEach(defect => {
+  //         colors[defect.name] = defect.color_code;
+  //       });
+  //       // Set the defect colors state
+  //       setDefectColors(colors);
+  //     })
+  //     .catch(error => {
+  //       console.error('Error fetching defect colors:', error);
+  //     });
+  // }, []);
 
   if (!data || data.length === 0) {
     return <div style={{display:'flex',justifyContent:'center'}}> 

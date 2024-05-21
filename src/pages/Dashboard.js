@@ -11,6 +11,7 @@ import PieChart from "../components/chart/PieChart";
 import MachinesParameter from "./MachinesParameterWithPagination";
 import MachinesParameterWithPagination from "./MachinesParameterWithPagination";
 import MachineParam from "../components/chart/MachineParam";
+import Slider from "../components/Slider/Slider"
 
 
 function Dashboard() {
@@ -59,14 +60,33 @@ function Dashboard() {
         console.error('Error:', error);
       });
   };
-  
+  const [extractedDates, setExtractedDates] = useState([]);
+
+
+  // Function to extract dates from JSON data
+
   useEffect(() => {
     getDepartments();
     getMachines();
     initialDateRange();
     initialTableData();
     alertApi()
+
   }, []);
+
+
+  const extractAndSumPersons = (data) => {
+    const today = new Date().toISOString().split('T')[0]; // Get today's date in YYYY-MM-DD format
+    return data
+      .filter(entry => {
+        const entryDate = new Date(entry.date_time).toISOString().split('T')[0];
+        return entryDate === today;
+      })
+      .reduce((sum, entry) => sum + parseInt(entry.no_of_persons, 10), 0); // Sum the number of persons
+  };
+  const dates = extractAndSumPersons(tableData);
+
+
 
   const getMachines = () => {
     const domain = baseURL;
@@ -109,6 +129,7 @@ function Dashboard() {
     
     setDateRange([formattedStartDate, formattedEndDate]);
   };
+
   const initialTableData = () => {
     const domain = `${baseURL}dashboard/`;
     const [fromDate, toDate] = [startDate, endDate].map(date => date.toISOString().slice(0, 10)); // Format dates as YYYY-MM-DD
@@ -122,6 +143,7 @@ function Dashboard() {
         console.error('Error:', error);
       });
   };
+
 const [alertData,setAlertData]=useState();
 
   const alertApi = ()=>{
@@ -204,6 +226,19 @@ const categorizeDefects = (data) => {
       </Menu.Item>
     </Menu>
   );
+  const [imageData, setImageData]= useState([])
+
+  useEffect(()=>{
+    axios.get('http://localhost:8000/dashboard_preview/')
+     .then((res)=>{
+         setImageData(res.data)
+     })
+     .catch((err)=>{
+         console.log(err)
+     })
+
+
+ },[])
   
   return (
     <>
@@ -226,6 +261,7 @@ const categorizeDefects = (data) => {
   onChange={handleMachineChange}
   size="large"
 >
+  console.log(tableData.length)
   {machineOptions.map(machine => (
     <Select.Option key={machine.id} value={machine.id}>{machine.name}</Select.Option>
   ))}
@@ -255,6 +291,7 @@ const categorizeDefects = (data) => {
 
        </Col>
         </Row>
+  
 
         <Row className="rowgap-vbox" gutter={[24, 0]}>
             <Col
@@ -275,7 +312,8 @@ const categorizeDefects = (data) => {
           <Title level={3}>
             {`Humans`}
           </Title>
-          <span>{`2`}</span>
+       
+          <span>{dates}</span>
         </Col>
         <Col xs={6}>
           <div className="icon-box"><VideoCameraOutlined /></div>
@@ -344,7 +382,13 @@ const categorizeDefects = (data) => {
               </Card>
             </Col>
         </Row>
+        <Row>
 
+<Col  className="mb-24" style={{margin:'3rem 0'}}>
+<Slider data={imageData}/>
+</Col> 
+</Row>
+   
         <Row gutter={[24, 24]}>
           {/* <Col xs={24} sm={24} md={12} lg={12} xl={8} className="mb-24">
          <Card bordered={false} className="h-full">
@@ -390,17 +434,13 @@ const categorizeDefects = (data) => {
 
             </Card>
           </Col> 
-          <Col xs={24} sm={24} md={12} lg={12} xl={12} className="mb-24">
+          {/* <Col xs={24} sm={24} md={12} lg={12} xl={12} className="mb-24">
             <Card bordered={false} className="criclebox h-full">
               <PieChart  data={tableData} />
             </Card>
-          </Col>
+          </Col> */}
         </Row>
-        <Row>
-        <Card bordered={false} className="criclebox h-full">
-         <MachinesParameterWithPagination />
-         </Card>
-        </Row>
+
 
       </div>
     </>

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Table, Select, DatePicker, Button, Image, Tag } from 'antd';
 import axios from 'axios';
+import { baseURL,API } from '../API/apirequest';
 import * as XLSX from 'xlsx';
 import moment from 'moment';
 import {
@@ -16,11 +17,11 @@ const Reports = () => {
  
 
   const columns = [
-    { title: 'Alert Name', dataIndex: 'alert_name', key: 'alert_name' },
-    { title: 'Defect Name', dataIndex: 'defect_name', key: 'defect_name' },
-    { title: 'Machine Name', dataIndex: 'machine_name', key: 'machine_name' },
-    { title: 'Department Name', dataIndex: 'department_name', key: 'department_name' },
-    { title: 'Recorded Date Time', dataIndex: 'recorded_date_time', key: 'recorded_date_time' },
+    { title: 'Camera Name', dataIndex: 'camera_name', key: 'camera_name' },
+    // { title: 'Defect Name', dataIndex: 'defect', key: 'defect' },
+    { title: 'Total Count', dataIndex: 'no_of_persons', key: 'no_of_persons' },
+    { title: 'Violation Count', dataIndex: 'non_compliance_count', key: 'non_compliance_count' },
+    { title: 'Recorded Date Time', dataIndex: 'date_time', key: 'date_time' },
     { 
       title: 'Image', 
       dataIndex: 'image_b64', 
@@ -61,7 +62,7 @@ const Reports = () => {
   };
   
   const handleApplyFilters = () => {
-    const domain = 'http://143.110.184.45:8100/';
+    const domain = baseURL;
     const [fromDate, toDate] = dateRange;
     let url = `${domain}reports/?`;
     url += `machine=${selectedMachine}&department=${selectedDepartment}`;
@@ -80,7 +81,7 @@ const Reports = () => {
 
   const [machineOptions, setMachineOptions] = useState([]);
   const getMachines=()=>{
-    const domain = 'http://143.110.184.45:8100/';
+    const domain = baseURL;
     let url = `${domain}machine/?`;
     axios.get(url)
       .then(response => {
@@ -96,7 +97,7 @@ const Reports = () => {
   }
   const [departmentOptions, setDepartmentOptions] = useState([]);
   const getDepartments=()=>{
-    const domain = 'http://143.110.184.45:8100/';
+    const domain = baseURL;
     let url = `${domain}department/?`;
     axios.get(url)
       .then(response => {
@@ -123,21 +124,24 @@ const Reports = () => {
   };
 
   const initialTableData = () => {
-    const domain = `http://143.110.184.45:8100/`;
+
+    const domain = baseURL;
    const url = `${domain}all_reports/`;
+
     axios.get(url)
       .then(response => {
         setTableData(response.data);
+
       })
       .catch(error => {
         console.error('Error:', error);
       });
   };
-
+console.log(tableData,'<<<<-----')
   
   useEffect(() => {
-    getDepartments()
-    getMachines();
+    // getDepartments()
+    // getMachines();
     initialDateRange()
     initialTableData();
   }, []); 

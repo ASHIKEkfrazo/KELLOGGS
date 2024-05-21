@@ -1,18 +1,10 @@
 import React, { useState, useEffect, useRef } from "react";
-import axios from "axios";
 import {Button, Select ,Space, Card, Col, Row ,Typography} from 'antd';
 import "../index.css"
 import {RightOutlined ,LeftOutlined} from '@ant-design/icons';
 const { Title } = Typography;
 
 const Camera = () => {
-
-    const [camera, setCamera]= useState({
-        "camera1":{
-            "a":'a',
-            "b":'b'
-        }
-    })
 
     const data = Array(12).fill({
       title: "Machine 1",

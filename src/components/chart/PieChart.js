@@ -11,17 +11,18 @@ function PieChart({ data }) {
     if (!data || typeof data !== 'object') return;
 
     const groupedData = data.reduce((acc, entry) => {
-      const { date_time, no_of_persons, color_code } = entry;
+      const { date_time, no_of_persons, non_compliance_count, color_code } = entry;
       const date = date_time.split('T')[0];
       if (!acc[date]) {
-        acc[date] = { no_of_persons: 0 };
+        acc[date] = { no_of_persons: 0, non_compliance_count: 0 };
       }
       acc[date].no_of_persons += parseInt(no_of_persons);
+      acc[date].non_compliance_count += parseInt(non_compliance_count);
       return acc;
     }, {});
 
     const labels = Object.keys(groupedData);
-    const series = Object.values(groupedData).map(item => item.no_of_persons);
+    const series = Object.values(groupedData).map(item => item.no_of_persons + item.non_compliance_count);
 
     setChartData({ labels: labels, series: series });
 
@@ -39,7 +40,7 @@ function PieChart({ data }) {
   return (
     <div>
       <div>
-        <Title level={5}>Pie Chart for No. of Persons by Date</Title>
+        <Title level={5}>Pie Chart for No. of Persons and Non-Compliance Count by Date</Title>
       </div>
       <ReactApexChart
         options={{

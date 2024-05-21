@@ -2,7 +2,7 @@
 import { useState,useEffect } from "react";
 import axios from 'axios';
 import {Card,Col, Row, Typography, Select, DatePicker,Checkbox, Button, Dropdown, Menu} from "antd";
-
+import { baseURL } from "../API/apirequest";
 import Paragraph from "antd/lib/typography/Paragraph";
 import {  VideoCameraOutlined, BugOutlined, AlertOutlined,} from '@ant-design/icons';
 import StackChart from "../components/chart/StackChart";
@@ -11,6 +11,7 @@ import PieChart from "../components/chart/PieChart";
 import MachinesParameter from "./MachinesParameterWithPagination";
 import MachinesParameterWithPagination from "./MachinesParameterWithPagination";
 import MachineParam from "../components/chart/MachineParam";
+import Slider from "../components/Slider/Slider"
 
 
 function Dashboard() {
@@ -44,7 +45,7 @@ function Dashboard() {
   };
   
   const handleApplyFilters = () => {
-    const domain = 'http://143.110.184.45:8100/';
+    const domain = baseURL;
     const [fromDate, toDate] = dateRange;
     let url = `${domain}reports/?`;
     url += `machine=${selectedMachine}&department=${selectedDepartment}`;
@@ -59,47 +60,65 @@ function Dashboard() {
         console.error('Error:', error);
       });
   };
-  
+  const extractAndSumPersons = (data) => {
+    const today = new Date().toISOString().split('T')[0]; // Get today's date in YYYY-MM-DD format
+    return data
+      .filter(entry => {
+        const entryDate = new Date(entry.date_time).toISOString().split('T')[0];
+        return entryDate === today;
+      })
+      .reduce((sum, entry) => sum + parseInt(entry.no_of_persons, 10), 0); // Sum the number of persons
+  };
+  const dates = extractAndSumPersons(tableData);
+ 
+  useEffect(()=>{
+    setInterval(()=>{
+      initialTableData();
+    },180000)
+ 
+  },[])
   useEffect(() => {
-    getDepartments();
-    getMachines();
+
     initialDateRange();
     initialTableData();
-    alertApi()
+
   }, []);
 
-  const getMachines = () => {
-    const domain = 'http://143.110.184.45:8100/';
-    let url = `${domain}machine/?`;
-    axios.get(url)
-      .then(response => {
-        const formattedMachines = response.data.map(machine => ({
-          id: machine.id,
-          name: machine.name,
-        }));
-        setMachineOptions(formattedMachines);
-      })
-      .catch(error => {
-        console.error('Error fetching machine data:', error);
-      });
-  };
 
-  const getDepartments = () => {
-    const domain = 'http://143.110.184.45:8100/';
-    let url = `${domain}department/?`;
-    axios.get(url)
-      .then(response => {
-        const formattedDepartment = response.data.map(department => ({
-          id: department.id,
-          name: department.name,
-        }));
-        setDepartmentOptions(formattedDepartment);
-      })
-      .catch(error => {
-        console.error('Error fetching department data:', error);
-      });
-  };
-console.log(tableData,'<<<')
+ 
+
+
+  // const getMachines = () => {
+  //   const domain = baseURL;
+  //   let url = `${domain}machine/?`;
+  //   axios.get(url)
+  //     .then(response => {
+  //       const formattedMachines = response.data.map(machine => ({
+  //         id: machine.id,
+  //         name: machine.name,
+  //       }));
+  //       setMachineOptions(formattedMachines);
+  //     })
+  //     .catch(error => {
+  //       console.error('Error fetching machine data:', error);
+  //     });
+  // };
+
+  // const getDepartments = () => {
+  //   const domain = baseURL;
+  //   let url = `${domain}department/?`;
+  //   axios.get(url)
+  //     .then(response => {
+  //       const formattedDepartment = response.data.map(department => ({
+  //         id: department.id,
+  //         name: department.name,
+  //       }));
+  //       setDepartmentOptions(formattedDepartment);
+  //     })
+  //     .catch(error => {
+  //       console.error('Error fetching department data:', error);
+  //     });
+  // };
   const initialDateRange = () => {
     const startDate = new Date();
     startDate.setDate(startDate.getDate() - 7); // 7 days ago
@@ -110,47 +129,9 @@ console.log(tableData,'<<<')
     
     setDateRange([formattedStartDate, formattedEndDate]);
   };
-const data = [
-  {
-    "no_of_persons": 100,
-    "date_time": "2024-04-04T12:00:00",
-    "person_color_code": "#561eck"
-},
-  {
-      "no_of_persons": 100,
-      "date_time": "2024-04-04T12:00:00",
-      "person_color_code": "#9632a8"
-  },
-  {
-      "no_of_persons": 90,
-      "date_time": "2024-04-05T12:00:00",
-      "person_color_code": "#561ecm"
-  },
-  {
-      "no_of_persons": 120,
-      "date_time": "2024-04-06T09:30:00",
-      "person_color_code": "#7b1f85"
-  },
-  {
-      "no_of_persons": 80,
-      "date_time": "2024-04-07T15:45:00",
-      "person_color_code": "#3a8e6d"
-  },
-  {
-      "no_of_persons": 150,
-      "date_time": "2024-04-08T11:20:00",
-      "person_color_code": "#a6491e"
-  },
-  {
-      "no_of_persons": 90,
-      "date_time": "2024-04-09T14:00:00",
-      "person_color_code": "#e6941b"
-  },
-
-]
 
   const initialTableData = () => {
-    const domain = `http://localhost:8000/dashboard/`;
+    const domain = `${baseURL}dashboard/`;
     const [fromDate, toDate] = [startDate, endDate].map(date => date.toISOString().slice(0, 10)); // Format dates as YYYY-MM-DD
     const url = `${domain}`;
     axios.get(url)
@@ -162,19 +143,20 @@ const data = [
         console.error('Error:', error);
       });
   };
+
 const [alertData,setAlertData]=useState();
 
-  const alertApi = ()=>{
-    const domain = `http://143.110.184.45:8100/`;
-    const url = `${domain}alerts/`;
-    axios.get(url).then((res)=>{
-console.log(res.data)
-setAlertData(res.data)
-    })
-    .catch((err)=>{
-      console.log(err)
-    })
-  }
+//   const alertApi = ()=>{
+//     const domain = baseURL;
+//     const url = `${domain}alerts/`;
+//     axios.get(url).then((res)=>{
+// console.log(res.data)
+// setAlertData(res.data)
+//     })
+//     .catch((err)=>{
+//       console.log(err)
+//     })
+//   }
  
 
   const { Title } = Typography;
@@ -209,31 +191,11 @@ const categorizeDefects = (data) => {
     setCategoryDefects(categorizedData);
   }, [tableData]);
 
-  // const categorizeDefects = (data) => {
-  //   const categorizedData = {};
-  
-  //   // Check if data is an array
-  //   if (Array.isArray(data)) {
-  //     data.forEach(item => {
-  //       const { defect_name } = item;
-  //       if (!categorizedData[defect_name]) {
-  //         categorizedData[defect_name] = [];
-  //       }
-  //       categorizedData[defect_name].push(item);
-  //     });
-  //   } else {
-  //     console.error('Data is not an array:', data);
-  //   }
-  
-  //   return categorizedData;
-  // };
-  
-  
   const [selectedCheckboxMachine, setSelectedCheckboxMachine] = useState([]);
 
   const handleMachineCheckBoxChange = (checkedValues) => {
     setSelectedCheckboxMachine(checkedValues);
-    let url = 'http://143.110.184.45:8100/reports?machine=';
+    let url = `${baseURL}reports?machine=`;
     checkedValues.forEach((machineId, index) => {
       if (index !== 0) {
         url += ',';
@@ -251,7 +213,6 @@ const categorizeDefects = (data) => {
     });
   };
   
-console.log(categoryDefects,'<<<')
   const menu = (
     <Menu selectable={true}>
       <Menu.Item key="0">
@@ -265,6 +226,20 @@ console.log(categoryDefects,'<<<')
       </Menu.Item>
     </Menu>
   );
+  const [imageData, setImageData]= useState([])
+
+  useEffect(()=>{
+    const domain = `${baseURL}dashboard_preview`;
+    axios.get(domain)
+     .then((res)=>{
+         setImageData(res.data)
+     })
+     .catch((err)=>{
+         console.log(err)
+     })
+
+
+ },[])
   
   return (
     <>
@@ -287,6 +262,7 @@ console.log(categoryDefects,'<<<')
   onChange={handleMachineChange}
   size="large"
 >
+  console.log(tableData.length)
   {machineOptions.map(machine => (
     <Select.Option key={machine.id} value={machine.id}>{machine.name}</Select.Option>
   ))}
@@ -316,6 +292,7 @@ console.log(categoryDefects,'<<<')
 
        </Col>
         </Row>
+  
 
         <Row className="rowgap-vbox" gutter={[24, 0]}>
             <Col
@@ -336,7 +313,8 @@ console.log(categoryDefects,'<<<')
           <Title level={3}>
             {`Humans`}
           </Title>
-          <span>{`2`}</span>
+       
+          <span>{dates}</span>
         </Col>
         <Col xs={6}>
           <div className="icon-box"><VideoCameraOutlined /></div>
@@ -405,7 +383,13 @@ console.log(categoryDefects,'<<<')
               </Card>
             </Col>
         </Row>
+        <Row style={{display:'flex',justifyContent:'center'}}>
 
+<Col  className="mb-24" style={{margin:'3rem 0',display:'flex',justifyContent:'center'}}>
+<Slider data={imageData}/>
+</Col> 
+</Row>
+   
         <Row gutter={[24, 24]}>
           {/* <Col xs={24} sm={24} md={12} lg={12} xl={8} className="mb-24">
          <Card bordered={false} className="h-full">
@@ -451,17 +435,13 @@ console.log(categoryDefects,'<<<')
 
             </Card>
           </Col> 
-          <Col xs={24} sm={24} md={12} lg={12} xl={12} className="mb-24">
+          {/* <Col xs={24} sm={24} md={12} lg={12} xl={12} className="mb-24">
             <Card bordered={false} className="criclebox h-full">
               <PieChart  data={tableData} />
             </Card>
-          </Col>
+          </Col> */}
         </Row>
-        <Row>
-        <Card bordered={false} className="criclebox h-full">
-         <MachinesParameterWithPagination />
-         </Card>
-        </Row>
+
 
       </div>
     </>

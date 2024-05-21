@@ -1,7 +1,7 @@
 import React ,{useMemo, useState} from 'react';
 import {Button, Select ,Space, Card, Col, Row ,ColorPicker, Form, Input, Radio, notification, Descriptions } from 'antd';
 import { Switch } from 'antd';
-import axios from "axios";
+import { API,baseURL } from '../API/apirequest';
 
 import {  EditOutlined} from '@ant-design/icons';
 
@@ -35,7 +35,7 @@ if(data === '' || data === undefined || data === null){
     }
     
     const PostData = async()=>{
-      const res = await axios.post(`http://143.110.184.45:8100/${param}/`,payload)
+      const res = await API.post(`${param}/`,payload)
       try{
         api.open({
           message: `${param} created`,
@@ -112,7 +112,7 @@ User Creation
   </Col>
 </Row>
 
-<Row gutter={24} style={{marginTop:'2rem',display:'flex',flexDirection:'column'}}>
+{/* <Row gutter={24} style={{marginTop:'2rem',display:'flex',flexDirection:'column'}}>
   <Col>
   <h5 style={{fontWeight:650}}>
     Create Defects <EditOutlined /></h5>
@@ -230,7 +230,7 @@ User Creation
   
   
   </Col>
-</Row>
+</Row> */}
 
 
 </>

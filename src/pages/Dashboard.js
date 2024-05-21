@@ -41,6 +41,7 @@ function Dashboard() {
       setDateRange(dateStrings);
     } else {
       console.error('Invalid date range:', dates,dateStrings);
+      
     }
   };
   

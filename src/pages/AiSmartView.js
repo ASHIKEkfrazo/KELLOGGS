@@ -1,12 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
-import axios from "axios";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import {Select } from "antd";
 import "../index.css"
 import {RightOutlined ,LeftOutlined} from '@ant-design/icons';
-
+import {API} from "../API/apirequest"
 
 const AiSmartView = () => {
   const [defectImages, setDefectImages] = useState([]);
@@ -17,7 +16,7 @@ const AiSmartView = () => {
   const sliderRef = useRef(null); 
 
   useEffect(() => {
-    axios.get("http://143.110.184.45:8100/defect/")
+    API.get("defect/")
       .then(response => {
         setDefects(response.data);
       })
@@ -28,7 +27,7 @@ const AiSmartView = () => {
 
   useEffect(() => {
     if (selectedDefect) {
-      axios.get(`http://143.110.184.45:8100/aismart/${selectedDefect.id}/`)
+      API.get(`aismart/${selectedDefect.id}/`)
         .then(response => {
           if (response.data.message) {
             setErrorMessage(response.data.message);

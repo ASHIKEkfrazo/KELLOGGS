@@ -2,7 +2,7 @@
 import { useState,useEffect } from "react";
 import axios from 'axios';
 import {Card,Col, Row, Typography, Select, DatePicker,Checkbox, Button, Dropdown, Menu} from "antd";
-
+import { baseURL } from "../API/apirequest";
 import Paragraph from "antd/lib/typography/Paragraph";
 import {  VideoCameraOutlined, BugOutlined, AlertOutlined,} from '@ant-design/icons';
 import StackChart from "../components/chart/StackChart";
@@ -45,7 +45,7 @@ function Dashboard() {
   };
   
   const handleApplyFilters = () => {
-    const domain = 'http://143.110.184.45:8100/';
+    const domain = baseURL;
     const [fromDate, toDate] = dateRange;
     let url = `${domain}reports/?`;
     url += `machine=${selectedMachine}&department=${selectedDepartment}`;
@@ -89,7 +89,7 @@ function Dashboard() {
 
 
   const getMachines = () => {
-    const domain = 'http://143.110.184.45:8100/';
+    const domain = baseURL;
     let url = `${domain}machine/?`;
     axios.get(url)
       .then(response => {
@@ -105,7 +105,7 @@ function Dashboard() {
   };
 
   const getDepartments = () => {
-    const domain = 'http://143.110.184.45:8100/';
+    const domain = baseURL;
     let url = `${domain}department/?`;
     axios.get(url)
       .then(response => {
@@ -119,7 +119,6 @@ function Dashboard() {
         console.error('Error fetching department data:', error);
       });
   };
-console.log(tableData,'<<<')
   const initialDateRange = () => {
     const startDate = new Date();
     startDate.setDate(startDate.getDate() - 7); // 7 days ago
@@ -130,122 +129,9 @@ console.log(tableData,'<<<')
     
     setDateRange([formattedStartDate, formattedEndDate]);
   };
-const data = [
-  {
-      "id": 37,
-      "no_of_persons": "85",
-      "date_time": "2024-05-15T15:00:00",
-      "color_code": "#33FF57",
-      "defect": null,
-      "non_compliance_count": "3",
-      "non_compliance_color_code": "#39C700",
-      "camera": 2,
-      "camera_name": "Camera 2"
-  },
-  {
-      "id": 38,
-      "no_of_persons": "112",
-      "date_time": "2024-05-15T16:00:00",
-      "color_code": "#5733FF",
-      "defect": "blurred image",
-      "non_compliance_count": "1",
-      "non_compliance_color_code": "#FF33C7",
-      "camera": 3,
-      "camera_name": "Camera 3"
-  },
-  {
-      "id": 39,
-      "no_of_persons": "97",
-      "date_time": "2024-05-15T17:00:00",
-      "color_code": "#FFC300",
-      "defect": null,
-      "non_compliance_count": "0",
-      "non_compliance_color_code": "#900C3F",
-      "camera": 4,
-      "camera_name": "Camera 4"
-  },
-  {
-      "id": 40,
-      "no_of_persons": "76",
-      "date_time": "2024-05-15T18:00:00",
-      "color_code": "#DAF7A6",
-      "defect": "low light",
-      "non_compliance_count": "4",
-      "non_compliance_color_code": "#C70039",
-      "camera": 5,
-      "camera_name": "Camera 5"
-  },
-  {
-      "id": 41,
-      "no_of_persons": "103",
-      "date_time": "2024-05-15T19:00:00",
-      "color_code": "#581845",
-      "defect": null,
-      "non_compliance_count": "2",
-      "non_compliance_color_code": "#900C3F",
-      "camera": 6,
-      "camera_name": "Camera 6"
-  },
-  {
-      "id": 42,
-      "no_of_persons": "64",
-      "date_time": "2024-05-15T20:00:00",
-      "color_code": "#FFC0CB",
-      "defect": "glare",
-      "non_compliance_count": "3",
-      "non_compliance_color_code": "#FF5733",
-      "camera": 7,
-      "camera_name": "Camera 7"
-  },
-  {
-      "id": 43,
-      "no_of_persons": "88",
-      "date_time": "2024-05-15T21:00:00",
-      "color_code": "#800080",
-      "defect": null,
-      "non_compliance_count": "1",
-      "non_compliance_color_code": "#C70039",
-      "camera": 8,
-      "camera_name": "Camera 8"
-  },
-  {
-      "id": 44,
-      "no_of_persons": "75",
-      "date_time": "2024-05-15T22:00:00",
-      "color_code": "#008080",
-      "defect": "out of focus",
-      "non_compliance_count": "2",
-      "non_compliance_color_code": "#900C3F",
-      "camera": 9,
-      "camera_name": "Camera 9"
-  },
-  {
-      "id": 45,
-      "no_of_persons": "90",
-      "date_time": "2024-05-15T23:00:00",
-      "color_code": "#0000FF",
-      "defect": null,
-      "non_compliance_count": "0",
-      "non_compliance_color_code": "#C70039",
-      "camera": 10,
-      "camera_name": "Camera 10"
-  },
-  {
-      "id": 46,
-      "no_of_persons": "99",
-      "date_time": "2024-05-16T00:00:00",
-      "color_code": "#FF0000",
-      "defect": "low resolution",
-      "non_compliance_count": "5",
-      "non_compliance_color_code": "#900C3F",
-      "camera": 11,
-      "camera_name": "Camera 11"
-  }
-]
-
 
   const initialTableData = () => {
-    const domain = `http://localhost:8000/dashboard/`;
+    const domain = `${baseURL}dashboard/`;
     const [fromDate, toDate] = [startDate, endDate].map(date => date.toISOString().slice(0, 10)); // Format dates as YYYY-MM-DD
     const url = `${domain}`;
     axios.get(url)
@@ -261,7 +147,7 @@ const data = [
 const [alertData,setAlertData]=useState();
 
   const alertApi = ()=>{
-    const domain = `http://143.110.184.45:8100/`;
+    const domain = baseURL;
     const url = `${domain}alerts/`;
     axios.get(url).then((res)=>{
 console.log(res.data)
@@ -305,31 +191,11 @@ const categorizeDefects = (data) => {
     setCategoryDefects(categorizedData);
   }, [tableData]);
 
-  // const categorizeDefects = (data) => {
-  //   const categorizedData = {};
-  
-  //   // Check if data is an array
-  //   if (Array.isArray(data)) {
-  //     data.forEach(item => {
-  //       const { defect_name } = item;
-  //       if (!categorizedData[defect_name]) {
-  //         categorizedData[defect_name] = [];
-  //       }
-  //       categorizedData[defect_name].push(item);
-  //     });
-  //   } else {
-  //     console.error('Data is not an array:', data);
-  //   }
-  
-  //   return categorizedData;
-  // };
-  
-  
   const [selectedCheckboxMachine, setSelectedCheckboxMachine] = useState([]);
 
   const handleMachineCheckBoxChange = (checkedValues) => {
     setSelectedCheckboxMachine(checkedValues);
-    let url = 'http://143.110.184.45:8100/reports?machine=';
+    let url = `${baseURL}reports?machine=`;
     checkedValues.forEach((machineId, index) => {
       if (index !== 0) {
         url += ',';

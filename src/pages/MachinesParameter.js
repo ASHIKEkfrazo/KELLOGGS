@@ -3,6 +3,7 @@ import { Table, Select, DatePicker, Button, Image, Tag } from 'antd';
 import axios from 'axios';
 import * as XLSX from 'xlsx';
 import moment from 'moment';
+import {API} from "../API/apirequest"
 import {
   VideoCameraOutlined,
   BugOutlined,
@@ -17,7 +18,7 @@ const MachinesParameter = () => {
   
 const [data,setData]=useState([])
   const getData=async ()=>{
-    await axios.get("http://143.110.184.45:8100/machine_temprature/")
+    await API.get(`machine_temprature/`)
     .then((res)=>{
       console.log(res.data)
       setData(res.data)

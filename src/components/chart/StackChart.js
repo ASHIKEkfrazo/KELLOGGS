@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import ReactApexChart from "react-apexcharts";
 import { Typography } from "antd";
 import axios from 'axios';
+ import { ColorRing } from 'react-loader-spinner'
 
 function StackChart({ data }) {
   const { Title } = Typography;
@@ -25,7 +26,17 @@ function StackChart({ data }) {
   }, []);
 
   if (!data || Object.keys(data).length === 0) {
-    return <div>Loading...</div>; // or some other fallback UI
+    return <div style={{display:'flex',justifyContent:'center'}}> 
+    <ColorRing
+visible={true}
+height="80"
+width="80"
+ariaLabel="color-ring-loading"
+wrapperStyle={{}}
+wrapperClass="color-ring-wrapper"
+colors={['#c91245','#c91245','#c91245','#c91245','#c91245','#c91245']}
+/>
+</div>
   }
 
   // Sort the data by date

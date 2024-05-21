@@ -60,21 +60,6 @@ function Dashboard() {
         console.error('Error:', error);
       });
   };
-  const [extractedDates, setExtractedDates] = useState([]);
-
-
-  // Function to extract dates from JSON data
-
-  useEffect(() => {
-    // getDepartments();
-    // getMachines();
-    initialDateRange();
-    initialTableData();
-    // alertApi()
-
-  }, []);
-
-
   const extractAndSumPersons = (data) => {
     const today = new Date().toISOString().split('T')[0]; // Get today's date in YYYY-MM-DD format
     return data
@@ -85,7 +70,22 @@ function Dashboard() {
       .reduce((sum, entry) => sum + parseInt(entry.no_of_persons, 10), 0); // Sum the number of persons
   };
   const dates = extractAndSumPersons(tableData);
+ 
+  useEffect(()=>{
+    setInterval(()=>{
+      initialTableData();
+    },180000)
+ 
+  },[])
+  useEffect(() => {
 
+    initialDateRange();
+    initialTableData();
+
+  }, []);
+
+
+ 
 
 
   // const getMachines = () => {

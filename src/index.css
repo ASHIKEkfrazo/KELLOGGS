@@ -136,3 +136,6 @@ content: '' !important;
   height: 300px;
   width: 100%;
 }
+.layout-dashboard .ant-layout-sider.sider-primary{
+  box-shadow: rgba(0, 0, 0, 0.479) 0px 20px 27px !important;
+}

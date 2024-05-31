@@ -27,8 +27,7 @@ function AutoPlay({ data }) {
   const settings = {
     dots: false,
     infinite: true,
-    speed: 500,
-    slidesToShow: 3,
+    slidesToShow: 4,
     slidesToScroll: 1,
     initialSlide: 0,
     autoplay: true,
@@ -63,25 +62,25 @@ function AutoPlay({ data }) {
 
       {
         data?.length > 0 ?
-        <div className="slider-container" style={{width:"100%"}}>
-        <h3 className="" style={{ margin: '1rem 0' }}>Violation</h3>
-        <Slider {...settings}>
-          {
-            data?.map((item) => {
-              return (
-                
-
-                <Card>
-                  <img src={item.image_b64} alt="" style={{width:"100%",height:"auto"}}/>
-                </Card>
-                )
-            })
-          }
+          <div className="slider-container" style={{ width: "100%" }}>
+            <h3 className="" style={{ margin: '1rem 0' }}>Violation</h3>
+            <Slider {...settings}>
+              {
+                data?.map((item) => {
+                  return (
 
 
-        </Slider>
+                    <Card>
+                      <img src={item.image_b64} alt="" style={{ width: "100%", height: "auto" }} />
+                    </Card>
+                  )
+                })
+              }
 
-      </div>
+
+            </Slider>
+
+          </div>
           // <ColorRing
           // visible={true}
           // height="80"
@@ -93,7 +92,7 @@ function AutoPlay({ data }) {
           // /> 
           :
 
-        null
+          null
       }
     </>
   );

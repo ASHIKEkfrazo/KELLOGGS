@@ -15,12 +15,12 @@ function AutoPlay({data}) {
     cssEase: "linear"
   };
 
-
+console.log(data)
   return (
     <>
     
     {
-      data.length === 0 ? 
+      data?.length === 0 ? 
 null
         // <ColorRing
         // visible={true}
@@ -37,7 +37,7 @@ null
         <h3 className="" style={{margin:'2rem 0'}}>Violation</h3>
       <Slider {...settings}>
         {
-            data.map((item)=>{
+            data?.map((item)=>{
                 return(
                     <Card>
                 <img src={item.image_b64} alt="" srcset="" />

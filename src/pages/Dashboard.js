@@ -230,7 +230,7 @@ const categorizeDefects = (data) => {
   const [imageData, setImageData]= useState([])
 
   useEffect(()=>{
-    const domain = `${baseURL}dashboard_preview`;
+    const domain = `${baseURL}dashboard_preview/`;
     axios.get(domain)
      .then((res)=>{
          setImageData(res.data)

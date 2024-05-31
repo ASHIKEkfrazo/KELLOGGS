@@ -172,15 +172,15 @@ const smartView = [
 
   return (
     <>
-      <div className="brand">
-        <img src="https://aivolved.in/wp-content/uploads/2022/11/ai-logo.png" alt="" />
-        <span>Aivolved</span>
-      </div>
-      <hr />
+   <div className="" style={{display:'flex',justifyContent:'center',width:'100%',marginBottom:'1rem'}}>
+      <div className="" style={{height:"82px",width:'82px',border:'0.5px solid #c6c6c6',borderRadius:'50%',background:'#c91245',display:'flex',alignItems:'center',justifyContent:'center'}}>
+            <img src="https://xtemko.stripocdn.email/content/guids/CABINET_3f6980a147b71160dce73149d2ef05dab8c491ba05fc385af44b49c47888eb10/images/kellogglogoblack1removebgpreview.png" alt="" style={{padding:'0.5rem'}} />
+          </div>
+   </div>
       <Menu theme="light" mode="inline">
         <Menu.Item key="1">
           <NavLink to="/dashboards">
-            <span
+            <span 
               className="icon"
               style={{
                 background: page === "dashboard" ? color : "",
@@ -314,9 +314,10 @@ const smartView = [
           </NavLink>
         </Menu.Item> */}
       </Menu>
-      <div className="" style={{height:"90px",width:'90px',border:'0.5px solid #c6c6c6',borderRadius:'50%',background:'#c91245',display:'flex',alignItems:'center',justifyContent:'center',position:'absolute',bottom:'5%',left:'30%'}}>
-            <img src="https://xtemko.stripocdn.email/content/guids/CABINET_3f6980a147b71160dce73149d2ef05dab8c491ba05fc385af44b49c47888eb10/images/kellogglogoblack1removebgpreview.png" alt="" width={100} style={{padding:'0.5rem'}} />
-          </div>
+      <div className="brand" style={{display:'flex',alignItems:'center',justifyContent:'center',position:'absolute',bottom:'5%',left:'25%',flexDirection:'column',gap:"0"}}>
+        <img src="https://aivolved.in/wp-content/uploads/2022/11/ai-logo.png" style={{height:'50px'}} alt="" />
+        <span>Aivolved</span>
+      </div>
     </>
   );
 }

@@ -1,7 +1,7 @@
 import axios from "axios";
-const baseURL=`http://kellogs.aivolved.in:8000/`;
+const baseURL=`http://kellogs.aivolved.in/api/`;
 const API = axios.create({
   baseURL,
 });
 
-export {API,baseURL};
+export { API, baseURL };

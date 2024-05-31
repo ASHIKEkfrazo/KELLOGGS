@@ -4,4 +4,4 @@ const API = axios.create({
   baseURL,
 });
 
-export {API,baseURL};
+export { API, baseURL };

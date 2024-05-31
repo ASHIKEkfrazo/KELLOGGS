@@ -179,7 +179,7 @@ const smartView = [
    </div>
       <Menu theme="light" mode="inline">
         <Menu.Item key="1">
-          <NavLink to="/dashboards">
+          <NavLink to="/dashboard-home">
             <span 
               className="icon"
               style={{

@@ -144,7 +144,7 @@ console.log(loginPayload)
         <Checkbox  style={{fontWeight:'700'}}>Remember Me</Checkbox>
         </div>
             <div className="">
-        <button style={{padding:'0.8rem 3rem',background:'#c91245',border:'none',borderRadius:'5px',color:'#fff',fontWeight:'600'}} onClick={loginPost}>Login</button>
+        <button style={{padding:'0.8rem 3rem',background:'#ec522d',border:'none',borderRadius:'5px',color:'#fff',fontWeight:'600'}} onClick={loginPost}>Login</button>
     </div>
     </div>
     {/* <div className="">

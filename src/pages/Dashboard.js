@@ -149,45 +149,9 @@ function Dashboard() {
         console.error('Error:', error);
       });
   };
-  // const initialTableData = () => {
-  //   setLoaderData(true)
-  //   const domain = baseURL;
-  //   const [fromDate, toDate] = [startDate, endDate].map(date => date.toISOString().slice(0, 10)); // Format dates as YYYY-MM-DD
-  //   const url = `${domain}dashboard/?plant_id=${localPlantData.id}`;
-  //   // const url = `${domain}dashboard/`;
-
-  //   axios.get(url,{
-  //     headers:{
-  //       Authorization:` Bearer ${AuthToken}`
-  //     }
-  //   })
-  //     .then(response => {
-  //       setLoaderData(false)
-  //       const { active_products, ...datesData } = response.data;
-  //       setTableData(datesData);
-  //     })
-  //     .catch(error => {
-  //       console.error('Error:', error);
-  //       setLoaderData(false)
-  //     });
-  // };
 
 
 const [alertData,setAlertData]=useState();
-
-//   const alertApi = ()=>{
-//     const domain = baseURL;
-//     const url = `${domain}alerts/`;
-//     axios.get(url).then((res)=>{
-// console.log(res.data)
-// setAlertData(res.data)
-//     })
-//     .catch((err)=>{
-//       console.log(err)
-//     })
-//   }
- 
-
   const { Title } = Typography;
   const { RangePicker } = DatePicker;
 
@@ -315,7 +279,7 @@ const categorizeDefects = (data) => {
           
       />
    
-      <Button type="primary" onClick={handleApplyFilters} style={{fontSize:"1rem",backgroundColor:"#c91245",marginRight:"10px"}}>Apply filters</Button>
+      <Button type="primary" onClick={handleApplyFilters} style={{fontSize:"1rem",backgroundColor:"#ec522d",marginRight:"10px"}}>Apply filters</Button>
 
 
        </Col>

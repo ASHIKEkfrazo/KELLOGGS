@@ -11,7 +11,7 @@ function Main({ children }) {
   const [visible, setVisible] = useState(false);
   const [placement, setPlacement] = useState("right");
 
-  const [sidenavColor, setSidenavColor] = useState("#c91245");
+  const [sidenavColor, setSidenavColor] = useState("#ec522d");
   const [sidenavType, setSidenavType] = useState("transparent");
   const [fixed, setFixed] = useState(false);
 

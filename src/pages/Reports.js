@@ -211,8 +211,8 @@ console.log(tableData,'<<<<-----')
           
       />
    
-      <Button type="primary" onClick={handleApplyFilters} style={{fontSize:"1rem",backgroundColor:"#c91245",marginRight:"10px"}}>Apply filters</Button>
-      <Button type="primary" icon={<DownloadOutlined />} size='large' style={{fontSize:"1rem",backgroundColor:"#c91245"}} onClick={downloadExcel}>
+      <Button type="primary" onClick={handleApplyFilters} style={{fontSize:"1rem",backgroundColor:"#ec522d",marginRight:"10px"}}>Apply filters</Button>
+      <Button type="primary" icon={<DownloadOutlined />} size='large' style={{fontSize:"1rem",backgroundColor:"#ec522d",margin:"6px 0"}} onClick={downloadExcel}>
             Download
           </Button>
       <Table columns={columns} dataSource={tableData}  style={{margin:"1rem 0"}}/>

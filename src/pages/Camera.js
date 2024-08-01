@@ -22,7 +22,7 @@ placeholder="Select Camera"
       style={{ width: 200 }}
       options={[{ value: 'camera1', label: 'camera1' },{ value: 'camera2', label: 'camera2' }]}
     />
-    <Button type="primary" style={{fontSize:"1rem",backgroundColor:"#c91245",margin:"1rem",display:'inline-flex',justifyContent:'center',alignItems:'center'}} ><RightOutlined /></Button>
+    <Button type="primary" style={{fontSize:"1rem",backgroundColor:"#ec522d",margin:"1rem",display:'inline-flex',justifyContent:'center',alignItems:'center'}} ><RightOutlined /></Button>
 
 
     <div className="flex">

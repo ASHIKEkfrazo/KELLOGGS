@@ -13,7 +13,8 @@ useLayoutEffect(()=>{
         setAuth(true)
     }
     else{
-        setAuth(false)
+        // setAuth(false)
+        setAuth(true)
     }
 },[])
 

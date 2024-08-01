@@ -34,7 +34,7 @@ function LineChart({ data }) {
   ariaLabel="color-ring-loading"
   wrapperStyle={{}}
   wrapperClass="color-ring-wrapper"
-  colors={['#c91245','#c91245','#c91245','#c91245','#c91245','#c91245']}
+  colors={['#ec522d','#ec522d','#ec522d','#ec522d','#ec522d','#ec522d']}
   />
     </div>; // or some other fallback UI
   }

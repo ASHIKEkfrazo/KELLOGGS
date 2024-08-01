@@ -143,7 +143,7 @@ console.log(data)
 </Col>
 <Col span={3}  >
 
-<Button type="primary" style={{width:'100%',padding:'0',background:'#c91245'}} onClick={()=>setModal2Open(true)} danger>
+<Button type="primary" style={{width:'100%',padding:'0',background:'#ec522d'}} onClick={()=>setModal2Open(true)} danger>
 User Creation
     </Button>   </Col>
 </Row>
@@ -217,7 +217,7 @@ User Creation
       <Input placeholder="input placeholder" value={handleChange} />
       </Form.Item>
       <Form.Item >
-        <Button style={{background:'#c91245',color:'#fff'}} onClick={()=>handlePost('defect')}>Create Defects</Button>
+        <Button style={{background:'#ec522d',color:'#fff'}} onClick={()=>handlePost('defect')}>Create Defects</Button>
       </Form.Item>
     </Form>
   
@@ -245,7 +245,7 @@ User Creation
         <Input placeholder="Enter Department Name"  onChange={(e)=>setData(e.target.value)} />
       </Form.Item>
       <Form.Item >
-        <Button style={{background:'#c91245',color:'#fff'}} onClick={()=>handlePost('department')}>Create Department</Button>
+        <Button style={{background:'#ec522d',color:'#fff'}} onClick={()=>handlePost('department')}>Create Department</Button>
       </Form.Item>
     </Form>
   
@@ -273,7 +273,7 @@ User Creation
         <Input placeholder="Enter Machine Name"  onChange={(e)=>setData(e.target.value)} />
       </Form.Item>
       <Form.Item >
-        <Button style={{background:'#c91245',color:'#fff'}} onClick={()=>handlePost('machine')}>Create Machine </Button>
+        <Button style={{background:'#ec522d',color:'#fff'}} onClick={()=>handlePost('machine')}>Create Machine </Button>
       </Form.Item>
     </Form>
   
@@ -302,7 +302,7 @@ User Creation
         <Input placeholder="Enter Alerts Name"  onChange={(e)=>setData(e.target.value)} />
       </Form.Item>
       <Form.Item>
-        <Button style={{background:'#c91245',color:'#fff'}} onClick={()=>handlePost('alerts')}>Create Alerts</Button>
+        <Button style={{background:'#ec522d',color:'#fff'}} onClick={()=>handlePost('alerts')}>Create Alerts</Button>
       </Form.Item>
     </Form>
   
@@ -358,7 +358,7 @@ User Creation
 
         </div>
         <div className="" style={{display:'flex',justifyContent:'flex-end',padding:'1rem'}}>
-        <Button type="primary" style={{width:'20%',padding:'0',background:"#c91245"}} danger onClick={()=>handlePost()}>
+        <Button type="primary" style={{width:'20%',padding:'0',background:"#ec522d"}} danger onClick={()=>handlePost()}>
 Submit
     </Button>
 

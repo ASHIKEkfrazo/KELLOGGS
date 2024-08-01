@@ -388,7 +388,7 @@ function Header({
           </div>
   
     
-          {/* <Badge size="small" count={4}>
+           {/* <Badge size="small" count={4}>
             <Dropdown overlay={menu} trigger={["click"]}>
               <a
                 href="#pablo"
@@ -398,7 +398,7 @@ function Header({
                 {bell}
               </a>
             </Dropdown>
-          </Badge> */}
+          </Badge>  */}
           {/* <Button type="link" onClick={showDrawer}>
             {logsetting}
           </Button>

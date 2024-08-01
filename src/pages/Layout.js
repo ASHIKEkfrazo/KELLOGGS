@@ -9,12 +9,12 @@ const token = localStorage.getItem("token");
 const PlantData = localStorage.getItem("PlantData");
 
 useLayoutEffect(()=>{
-    if(token && PlantData){
+    if(token){
         setAuth(true)
     }
     else{
-        // setAuth(false)
-        setAuth(true)
+        setAuth(false)
+        // setAuth(true)
     }
 },[])
 

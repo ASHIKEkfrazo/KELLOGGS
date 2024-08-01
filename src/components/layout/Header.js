@@ -11,7 +11,7 @@
 */
 
 import { useState, useEffect } from "react";
-
+import axios from "axios"
 import {
   Row,
   Col,
@@ -25,7 +25,8 @@ import {
   Drawer,
   Typography,
   Switch,
-} from "antd";
+  notification, Space
+,Modal} from "antd";
 
 import {
   SearchOutlined,
@@ -33,8 +34,8 @@ import {
   TwitterOutlined,
   FacebookFilled,
 } from "@ant-design/icons";
-
-import { NavLink, Link } from "react-router-dom";
+import { baseURL,AuthToken } from "../../API/apirequest";
+import { NavLink, Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import avtar from "../../assets/images/team-2.jpg";
 
@@ -258,16 +259,30 @@ function Header({
   handleSidenavType,
   handleFixedNavbar,
 }) {
-  const { Title, Text } = Typography;
+  const navigate = useNavigate()
 
+  const [refreshTokens, setrefreshTokens] = useState(() => 
+    JSON.parse(localStorage.getItem('refreshToken')) || null
+  );
   const [visible, setVisible] = useState(false);
   const [sidenavType, setSidenavType] = useState("transparent");
+  const [modal1Open, setModal1Open] = useState(false);
+
 
   useEffect(() => window.scrollTo(0, 0));
 
   const showDrawer = () => setVisible(true);
   const hideDrawer = () => setVisible(false);
 
+
+
+  const [api, contextHolder] = notification.useNotification();
+  const openNotification = () => {
+    api.success({
+      message:<div style={{fontWeight:"600",fontSize:"1.1rem"}}>Logout Successful</div> ,
+   
+    });
+  };
   const Clock=()=>{
     const [date, setDate] = useState(new Date());
     
@@ -286,6 +301,31 @@ function Header({
       </span>
     );
   }
+
+  const logout = async()=>{
+    try {
+      await axios.post(`${baseURL}logout/`,{
+        refresh_token:refreshTokens
+      },{
+        headers:{
+          Authorization: `Bearer ${AuthToken}`
+        }
+      })
+      
+      
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  const handleLogout  = async ()=>{
+     await setModal1Open(false)
+    await openNotification()
+  
+      await navigate('/login');
+     await logout()
+     await localStorage.clear();
+
+  }
   const DateContainer=()=>{
     const date = new Date().toLocaleDateString();
     return(<>
@@ -298,6 +338,20 @@ function Header({
       {/* <div className="setting-drwer" onClick={showDrawer}>
         {setting}
       </div> */}
+       {contextHolder}
+      <Modal
+        title={<div style={{textAlign:'center',padding:'1rem 0',fontWeight:'600',fontSize:'1.2rem'}}>Are You Sure You Want To Logout?</div>}
+        style={{
+          top: 20,
+        }}
+        open={modal1Open}
+        onCancel={() => setModal1Open(false)}
+        footer={null}
+      >
+        <div className="" style={{display:'flex',justifyContent:'center'}}>
+        <Button onClick={handleLogout} style={{background:'orangeRed',color:'#fff'}}>LOGOUT</Button>
+        </div>
+      </Modal>
       <Row gutter={[24, 0]} style={{marginTop:'2rem'}}>
         <Col span={24} md={6} style={{display:'flex',alignItems:'center'}}>
           {/* <Breadcrumb>
@@ -319,10 +373,17 @@ function Header({
         </Col>
         <Col span={24} md={18} className="header-control"  >
           <div className="" style={{display:"flex",gap:"2rem", fontSize:"1rem",fontWeight:"500",}}> 
+            
           <div className="" style={{padding:'0.1rem 1rem',display:"flex",gap:"2rem", fontSize:"1rem",fontWeight:"500",border:'0.5px solid #c6c6c6',alignItems:'center',justifyContent:'center',borderRadius:'10px'}}>
+            
           <DateContainer/>
           <Clock />
           </div>
+          <div onClick={()=>setModal1Open(true)} className="" style={{padding:"0.5rem 2rem", borderRadius:'10px',cursor:'pointer',background:'#fafafa',boxShadow:'rgba(0, 0, 0, 0.1) 0px 2px 4px',border:'0.5px solid #8080806e',display:'flex',justifyContent:'center',alignItems:'center'}}>
+        <img src="https://w7.pngwing.com/pngs/253/714/png-transparent-logout-heroicons-ui-icon-thumbnail.png" style={{height:'30px',width:'30px'}} alt="" />
+
+         <span style={{color:"#000",fontWeight:'700'}}> Logout</span>
+        </div>
      
           </div>
   
@@ -466,6 +527,8 @@ function Header({
           /> */}
   
         </Col> 
+      
+       
       </Row>
     </>
   );

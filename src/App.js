@@ -1,5 +1,8 @@
-import { Switch, Route, Redirect } from "react-router-dom";
-import SignUp from "./pages/SignUp";
+import {
+  createBrowserRouter,
+  createRoutesFromElements,
+  RouterProvider,
+} from "react-router-dom";import SignUp from "./pages/SignUp";
 import SignIn from "./pages/SignIn";
 import Main from "./components/layout/Main";
 import "../node_modules/antd/dist/antd"
@@ -12,11 +15,84 @@ import MachinesParameter from "./pages/MachinesParameter";
 import Camera from "./pages/Camera";
 import Settings from "./pages/Settings";
 // import Settings from "./pages/Settings";
+import Login from "./pages/Auth/Login";
 
+import Layout from "./pages/Layout";
 function App() {
+
+
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <Layout />,
+   
+      children: [
+        {
+          path: "", 
+          element: <Dashboard />,
+        },
+        {
+         path: 'dashboard-home',
+          element: <Dashboard />,
+        },
+        {
+          path: 'reports',
+          element: <Reports />,
+        },
+        {
+          path: 'ai-smart-view',
+          element: <AiSmartView />,
+        },
+        {
+          path: 'machine-parameter',
+          element: <MachinesParameter />,
+        },
+        {
+          path: 'system-status',
+          element: <Camera />,
+        },
+        {
+          path: 'settings',
+          element: <Settings />,
+        }, 
+        //   {
+        //   path: 'insights',
+        //   element: <Insights />,
+        // },
+        // {
+        //   path: 'Plants',
+        //   element: <Organisation />,
+     
+        // },
+        // {
+        //   path: 'Plants/:id',
+        //   element: <Plants />,
+        // }, 
+        //     {
+        //   path: 'Organization-Dashboard/:id',
+        //   element: <Selectdashboard />,
+        // },
+      ]
+    },
+    {
+      path: "/login",
+      element: <Login />,
+    }, 
+    //   {
+    //   path: "/resetPassword",
+    //   element: <ResetPassword />,
+    // },
+    // {
+    //   path: "/Plant",
+    //   element: <Plant />,
+    // },
+
+  ]);
+
+
   return (
     <div className="App" >
-      <Switch>
+      {/* <Switch>
         <Route path="/sign-up" exact component={SignUp} />
         <Route path="/sign-in" exact component={SignIn} />
         <Main>
@@ -28,7 +104,9 @@ function App() {
           <Route exact path="/settings" component={Settings} />
           <Redirect from="*" to="/dashboard-home" />
         </Main>
-      </Switch>
+      </Switch> */}
+               <RouterProvider router={router} />
+
     </div>
   );
 }

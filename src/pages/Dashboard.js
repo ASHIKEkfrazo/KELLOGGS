@@ -2,7 +2,7 @@
 import { useState,useEffect } from "react";
 import axios from 'axios';
 import {Card,Col, Row, Typography, Select, DatePicker,Checkbox, Button, Dropdown, Menu} from "antd";
-import { baseURL } from "../API/apirequest";
+import { baseURL,AuthToken } from "../API/apirequest";
 import Paragraph from "antd/lib/typography/Paragraph";
 import {  VideoCameraOutlined, BugOutlined, AlertOutlined,} from '@ant-design/icons';
 import StackChart from "../components/chart/StackChart";
@@ -28,6 +28,8 @@ function Dashboard() {
   const [tableData, setTableData] = useState([]);
   const [machineOptions, setMachineOptions] = useState([]);
   const [departmentOptions, setDepartmentOptions] = useState([]);
+  const [loaderData,setLoaderData] = useState(false)
+
   const handleMachineChange = value => {
     setSelectedMachine(value);
   };
@@ -35,13 +37,16 @@ function Dashboard() {
     setSelectedDepartment(value);
   };
 
+  
+  const localItems = localStorage.getItem("PlantData")
+  const localPlantData = JSON.parse(localItems) 
+
   const handleDateRangeChange = (dates, dateStrings) => {
     if (dateStrings) {
       console.log(dateStrings)
       setDateRange(dateStrings);
     } else {
       console.error('Invalid date range:', dates,dateStrings);
-      
     }
   };
   
@@ -144,6 +149,29 @@ function Dashboard() {
         console.error('Error:', error);
       });
   };
+  // const initialTableData = () => {
+  //   setLoaderData(true)
+  //   const domain = baseURL;
+  //   const [fromDate, toDate] = [startDate, endDate].map(date => date.toISOString().slice(0, 10)); // Format dates as YYYY-MM-DD
+  //   const url = `${domain}dashboard/?plant_id=${localPlantData.id}`;
+  //   // const url = `${domain}dashboard/`;
+
+  //   axios.get(url,{
+  //     headers:{
+  //       Authorization:` Bearer ${AuthToken}`
+  //     }
+  //   })
+  //     .then(response => {
+  //       setLoaderData(false)
+  //       const { active_products, ...datesData } = response.data;
+  //       setTableData(datesData);
+  //     })
+  //     .catch(error => {
+  //       console.error('Error:', error);
+  //       setLoaderData(false)
+  //     });
+  // };
+
 
 const [alertData,setAlertData]=useState();
 
@@ -207,7 +235,6 @@ const categorizeDefects = (data) => {
     axios.get(url)
     .then(response => {
       console.log(response) 
-      // setTableData(response.data);
     })
     .catch(error => {
       console.error('Error fetching department data:', error);
@@ -311,10 +338,10 @@ const categorizeDefects = (data) => {
     <div className="number">
       <Row align="middle">
         <Col xs={18}>
+          <small style={{fontWeight:"bold",color:"#808080"}}>Human count for the day</small>
           <Title level={3}>
             {`Humans`}
           </Title>
-       
           <span>{dates}</span>
         </Col>
         <Col xs={6}>

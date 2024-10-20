@@ -136,6 +136,68 @@ content: '' !important;
   height: 300px;
   width: 100%;
 }
+<<<<<<< Updated upstream
 .layout-dashboard .ant-layout-sider.sider-primary{
   box-shadow: rgba(0, 0, 0, 0.479) 0px 20px 27px !important;
 }
+=======
+
+
+
+:where(.css-dev-only-do-not-override-kghr11).ant-checkbox-checked .ant-checkbox-inner {
+  background-color: orangered !important;
+  border: orangered !important;
+}
+
+:where(.css-dev-only-do-not-override-kghr11).ant-table-wrapper .ant-table-thead>tr>th {
+  font-size: 1rem;
+}
+
+:where(.css-dev-only-do-not-override-kghr11).ant-table-wrapper .ant-table-tbody>tr>th,
+:where(.css-dev-only-do-not-override-kghr11).ant-table-wrapper .ant-table-tbody>tr>td {
+  font-weight: 500;
+}
+
+:where(.css-dev-only-do-not-override-kghr11).ant-notification .ant-notification-notice-wrapper .ant-notification-notice {
+  padding: 20px 24px !important;
+  width: 384px !important;
+  background-color: orangered !important;
+  color: #fff !important;
+  max-width: calc(100vw - 48px) !important;
+  overflow: hidden !important;
+  line-height: 1.5714285714285714 !important;
+  word-wrap: break-word !important;
+}
+
+:where(.css-dev-only-do-not-override-kghr11).ant-notification .ant-notification-notice-wrapper .ant-notification-notice-with-icon .ant-notification-notice-message {
+  margin-bottom: 8px !important;
+  margin-inline-start: 36px !important;
+  color: #fff !important;
+  font-size: 16px !important;
+}
+
+:where(.css-dev-only-do-not-override-kghr11).ant-notification .ant-notification-notice-wrapper .ant-notification-notice-close {
+  position: absolute !important;
+  top: 20px !important;
+  inset-inline-end: 24px !important;
+  color: #fff !important;
+  outline: none !important;
+  width: 22px !important;
+  height: 22px !important;
+  border-radius: 4px !important;
+  transition: background-color 0.2s, color 0.2s !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.ai-view-image_container{
+  height: 50vh !important;
+}
+.ant-tabs-card .ant-tabs-tab-active {
+  background-color: #c91245 !important; /* Active tab background */
+  color: #fff;                        /* Active tab text color */
+}
+
+
+>>>>>>> Stashed changes
